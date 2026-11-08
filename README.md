@@ -9,6 +9,11 @@ ESP8266 based controller for split flap display modules. The code is all-in-one,
 ## Attribution
 This design is mostly [David Königsmann's fantastic design](https://github.com/Dave19171/split-flap) with changes to improve printability, improve durability, or reduce filament use. Specifically the unit has been reduced to 8 characters so it could be printed on an Ender 3 V2. That said, most of the changes are just personal preference, and hats off to David for his great design.
 
+## Printing
+Ready-to-print files for a **10-character** display are in [models/print](models/print/README.md). They use David's original 10-character case, the reinforced frame and rotors from this repo, and David's flaps (the umlaut-free set, matching the firmware). That folder has the quantities and print notes. The case pieces are up to about 241 mm long, so they need a bed larger than an Ender 3 V2's.
+
+The 8-character version described above is still available as a single assembly in [models/AssemblyWithChanges.step](models/AssemblyWithChanges.step).
+
 ## Electronics
 The name of the game is low-cost, and ease of construction. Not that David's design isn't already low cost, but I am a cheapskate. Each module's BOM is very low, making use of the ULN2003 that you usually get with your 28BYJ-48 steppers (as with David's) but instead of having an Arduino Nano for each, along with an ESP01, each module only uses a single ultra-cheap Wemos Lolin D1 Mini V4 (any version with the ESP8266EX, without the metal sheild, will work). The rest is just support components, and everything is through-hole mounted. 
 
