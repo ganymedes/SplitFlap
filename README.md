@@ -31,4 +31,4 @@ There's a reset button on the left side. Press it three times. This should clear
 Go to http://splitflap.local/update.html and put your firmware.bin/littlefs.bin file into the form and press submit. Wait about 30 seconds, or until the form times out. Do not reset your device until you regain contact with it through the web portal, or you might interrupt the update sequence.
 
 ### I flashed a new firmware that had a change to the Config structure, and now my display isn't responding
-There's a reset button on the left side. Press it six times. This should toggle the master mode.
+There's a reset button on the left side. Press it six times. This makes the module the master again (it does not toggle). Since six presses also counts as three or more, it clears your WiFi credentials too, so you will have to reconnect it to your network.

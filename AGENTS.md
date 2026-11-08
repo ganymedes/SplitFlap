@@ -8,6 +8,11 @@ Instructions for AI coding agents working in this repository.
 - `origin` is our fork (`github.com/ganymedes/SplitFlap`). Never push to the upstream repository.
 - Use small, focused commits with a descriptive message.
 
+## Keep README.md in sync
+
+- Every change must leave `README.md` accurate. When a change affects anything the README describes (features, web UI or REST API, serial commands, reset-button behaviour, pins and wiring, build or flashing steps, dependencies), update the README in the same commit.
+- If you notice the README already disagrees with the code, fix the README (or flag it if the code looks wrong).
+
 ## Project
 
 ESP8266 (Wemos D1 Mini) firmware for split-flap display modules, built with PlatformIO (`platformio.ini`, env `d1_mini`). Every module runs the same firmware. The master runs the web server and drives the other modules over I2C.
