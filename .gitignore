@@ -1,7 +1,18 @@
+# PlatformIO build output
 .pio
+
+# Generated before every build by randomInt.py
+include/moduleVersion.h
+
+# VS Code / PlatformIO machine-specific files (extensions.json is shared)
 .vscode/.browse.c_cpp.db*
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/ipch
 
-include/moduleVersion.h
+# Claude Code personal settings
+.claude/settings.local.json
+CLAUDE.local.md
+
+# macOS
+.DS_Store
