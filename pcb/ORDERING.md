@@ -99,7 +99,13 @@ Upload the BOM and CPL `.csv` files. The parts should match automatically:
 | U2 | 9-pin female header, 2.54 mm | C5224028 |
 | **U1** | **Wemos D1 Mini** | **Not available, so untick it ("do not place")** |
 
-If a part is out of stock, choose an equivalent through-hole part with the same footprint.
+If a part is out of stock, choose an equivalent through-hole part with the same footprint. These substitutes worked in November 2026, when the original parts were out of stock:
+
+| Ref | Substitute | LCSC # | Note |
+|---|---|---|---|
+| 12VIN, 12VOUT | JST B2B-XH-A(LF)(SN) | C158012 | Same connector, without the locating peg |
+| I2C-A, I2C-B | JST B4B-XH-A(LF)(SN) | C144395 | Same connector, without the locating peg |
+| U4 | ULN2003A (DIP-16) | C93000 | Same chip from another manufacturer |
 
 ## 5. Check the placement preview
 
