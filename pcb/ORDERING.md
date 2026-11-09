@@ -27,9 +27,12 @@ Upload the Gerber `.zip` at jlcpcb.com → *Order now*. The dimensions and layer
 | Layers | 2 | |
 | Dimensions | 40 × 80 mm | Detected from the Gerbers |
 | PCB Qty | 10 (or 15) | One per character |
+| Product Type | Industrial/Consumer electronics | |
+| Different Design | 1 | |
 | Delivery Format | Single PCB | |
 | PCB Thickness | 1.6 mm | |
 | PCB Color | Green | Cheapest and fastest; other colours are fine |
+| Silkscreen | White | Set automatically by the PCB colour |
 | Material Type | FR4 TG135 | The branded laminates (KB6164, KB6165F TG155, Nan Ya) give no benefit here |
 | Surface Finish | LeadFree HASL | Easy to solder and stores well. Avoid OSP (short shelf life) and ENIG (unnecessary cost) |
 
