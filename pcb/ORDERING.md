@@ -120,7 +120,7 @@ Rotate any part that's wrong, then confirm.
 ## 6. After ordering
 
 1. **"Reviewed and approved" email.** JLCPCB checked your files and found no problems. They now prepare the production files. Nothing to do yet.
-2. **Production file approval.** You chose "Confirm Production file: Yes", so you get a second email when the files are ready. Open the order in *Order History*, check the outline, holes and silkscreen, and click **Confirm**. The order waits until you do.
+2. **Production file approval.** You chose "Confirm Production file: Yes", so you get a second email when the files are ready. Confirm within 48 hours to avoid delays. Open the order in *Order History*, check the outline, holes and silkscreen, and click **Confirm**. The order waits until you do. The bottom silkscreen shows a "That's what she said" image. It is part of the original design, not a JLCPCB error.
 3. **Parts placement approval.** Check the placement image again (U4 pin 1, the D1 stripe, connector pin 1) and confirm it.
 4. **Production and shipping.** Nothing else is needed from you. You get a tracking number when the order ships.
 
