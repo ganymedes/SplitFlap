@@ -112,15 +112,19 @@ If a part is out of stock, choose an equivalent through-hole part with the same 
 Before you confirm, check that:
 
 - **U4 (ULN2003):** the notch and pin 1 match the outline printed on the board.
-- **D1 (1N4148):** the stripe on the diode is on the same side as the stripe printed on the board.
-- **The JST connectors:** the openings face toward the board edge where the cables plug in.
+- **D1 (1N4148):** the stripe on the diode is on the same side as the stripe printed on the board (toward the HALL connector).
+- **The JST connectors:** they are vertical, so what matters is that pin 1 of each part sits on pin 1 of its footprint. On HALL and I2C-A/B, pin 1 is GND. On 12VIN/12VOUT, check that the latch slot faces the same way as the outline printed on the board.
 
 Rotate any part that's wrong, then confirm.
 
 ## 6. After ordering
 
-- Approve the production file when JLCPCB emails you (you chose "Confirm Production file: Yes"). The order waits until you do.
-- Approve the parts placement in the same way.
+1. **"Reviewed and approved" email.** JLCPCB checked your files and found no problems. They now prepare the production files. Nothing to do yet.
+2. **Production file approval.** You chose "Confirm Production file: Yes", so you get a second email when the files are ready. Open the order in *Order History*, check the outline, holes and silkscreen, and click **Confirm**. The order waits until you do.
+3. **Parts placement approval.** Check the placement image again (U4 pin 1, the D1 stripe, connector pin 1) and confirm it.
+4. **Production and shipping.** Nothing else is needed from you. You get a tracking number when the order ships.
+
+If JLCPCB finds a problem at any step, they email you and hold the order until you reply.
 
 ## 7. When the boards arrive
 
