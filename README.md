@@ -25,6 +25,9 @@ Finally, indeed the software uses the Arduino platform code, but rather than bei
 ## Wire implementation
 The ESP8266 core has a bad I2C implementation. I've patched it up manually to keep it from doing weird things, and destabilizing the system, such as doing clock stretching in odd places, or setting SDA low/high immediately before or after toggling SCL. I've also enabled GCALL by means of always responding ACK to address 0. It seems to work, but it is certainly being misused. 
 
+## Ordering the PCB
+See [pcb/ORDERING.md](pcb/ORDERING.md) for a step-by-step guide to ordering the module PCB from JLCPCB, assembled except for the D1 Mini. It covers generating the Gerber, BOM and placement files in EasyEDA, every order option, and part matching.
+
 ## Building Notes
 The master device needs 2 4.7k pullup resistors on 4 and 5, that is, SDA and SCL. The hall sensor output also has to be rerouted to D0, and a 10k pullup should be added, since D0 does not have one internally. These features have not beed added to the schematic or the PCB, so if you build this as-is, expect a bit of manual work.
 
