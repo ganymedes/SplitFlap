@@ -1,0 +1,250 @@
+<!doctype html>
+<!-- Source of ../SOLDERING.pdf. Rebuild: python3 bottom_svg.py bottom.svg, then print this page to PDF, e.g.
+     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --no-pdf-header-footer --print-to-pdf=../SOLDERING.pdf "file://$PWD/guide.html" -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SplitFlap module PCB: soldering guide</title>
+<style>
+  @page { size: A4; margin: 14mm 15mm 15mm; }
+  :root { --ink:#1d1f24; --muted:#5b6170; --line:#d9dce3; --accent:#e8590c; --blue:#1c7ed6; --green:#2b8a3e; --pink:#c2255c; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; background:#fff; color:var(--ink); }
+  body { font: 10pt/1.45 -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  h1 { font-size: 22pt; line-height:1.15; margin: 0 0 2mm; letter-spacing:-.3px; }
+  .sub { color:var(--muted); font-size:11pt; margin:0 0 5mm; }
+  h2 { font-size: 14pt; margin: 7mm 0 2.5mm; display:flex; align-items:center; gap:3mm; break-after: avoid; }
+  h2 .n { display:inline-flex; width:8mm; height:8mm; border-radius:50%; background:var(--ink); color:#fff; font-size:11pt; align-items:center; justify-content:center; flex:none; }
+  h3 { font-size: 11pt; margin: 4mm 0 1.5mm; break-after: avoid; }
+  p { margin: 0 0 2.5mm; }
+  ul, ol { margin: 0 0 3mm; padding-left: 5.5mm; }
+  li { margin: 0 0 1.2mm; }
+  .cols { display:grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .box { border:1px solid var(--line); border-radius:3mm; padding:3.5mm 4.5mm 1.5mm; }
+  .box h3 { margin-top:0; }
+  .why { color:var(--muted); }
+  .note { border-left: 1.2mm solid var(--accent); background:#fff4e6; padding:2.5mm 4mm; border-radius:0 2mm 2mm 0; margin: 3mm 0; break-inside: avoid; }
+  .master { border-left-color: var(--pink); background:#fff0f6; }
+  figure { margin: 3mm 0 4mm; break-inside: avoid; }
+  figure svg, figure img { display:block; width:100%; height:auto; }
+  figcaption { color:var(--muted); font-size:9pt; margin-top:1.5mm; }
+  .pair { display:grid; grid-template-columns: 1.05fr 1fr; gap:6mm; align-items:end; }
+  .bottom { display:grid; grid-template-columns: 88mm 1fr; gap:7mm; align-items:start; }
+  .bottom img { width:88mm; }
+  table { border-collapse: collapse; width:100%; margin: 1mm 0 3mm; break-inside: avoid; }
+  th, td { text-align:left; padding: 1.8mm 2.5mm; border-bottom:1px solid var(--line); vertical-align: top; }
+  td:first-child { white-space: nowrap; }
+  th { font-size:9pt; color:var(--muted); font-weight:600; }
+  .swatch { display:inline-block; width:3.2mm; height:3.2mm; border-radius:.8mm; vertical-align:-.4mm; margin-right:1.5mm; }
+  .pb { break-before: page; }
+  code { font: 9pt Menlo, monospace; background:#f1f3f5; padding:.2mm 1mm; border-radius:1mm; }
+  /* SVG annotation styles */
+  .tag rect { fill:#fff; stroke-width:3; }
+  .tag text { font: 700 28px -apple-system, Helvetica, Arial, sans-serif; text-anchor: middle; dominant-baseline: central; }
+  .on-black { font: 700 30px -apple-system, Helvetica, Arial, sans-serif; fill:#fff; text-anchor: middle; dominant-baseline: central; }
+</style>
+</head>
+<body>
+
+<h1>SplitFlap module PCB: soldering guide</h1>
+<p class="sub">Fitting the Wemos D1 Mini and the two fixes the board needs. One board per character.</p>
+
+<p>JLCPCB delivers the board with every part fitted except the D1 Mini. You fit the D1 Mini on plug-in headers, so you can take it out again later. Then you add two small fixes underneath that are missing from the PCB design. Allow about 15 minutes per board.</p>
+
+<div class="cols">
+  <div class="box">
+    <h3>Parts per board</h3>
+    <ul>
+      <li>1 module PCB</li>
+      <li>1 Wemos D1 Mini (ESP8266, without metal shield; the USB-C v4 is fine)</li>
+      <li>2 × 8-pin male header and 2 × 8-pin female header (they come with the D1 Mini)</li>
+      <li>1 × 10 kΩ resistor, ¼ W through-hole</li>
+      <li>About 4 cm of thin insulated wire (26–30 AWG)</li>
+    </ul>
+    <h3>Extra for the master board (one per display)</h3>
+    <ul>
+      <li>2 × 4.7 kΩ resistor, ¼ W</li>
+      <li>Optional: a reset button with two wires</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>Tools</h3>
+    <ul>
+      <li>Soldering iron, about 330–350 °C</li>
+      <li>Solder (0.5–0.8 mm)</li>
+      <li>Flush cutters</li>
+      <li>Multimeter with a continuity beep</li>
+      <li>Blu-Tack or tape, to hold parts while soldering</li>
+      <li>Heat-shrink or sleeving for long resistor legs</li>
+      <li>Safety glasses for cutting pins</li>
+    </ul>
+  </div>
+</div>
+
+<figure>
+  <svg viewBox="0 0 1660 920" xmlns="http://www.w3.org/2000/svg">
+    <image href="headers.jpg" x="0" y="0" width="1660" height="920"/>
+    <g class="tag"><rect x="235" y="125" width="320" height="50" rx="10" stroke="#1c7ed6"/><text x="395" y="150" fill="#1c7ed6">MALE → D1 Mini</text></g>
+    <g class="tag"><rect x="235" y="403" width="320" height="50" rx="10" stroke="#1c7ed6"/><text x="395" y="428" fill="#1c7ed6">MALE → D1 Mini</text></g>
+    <text class="on-black" x="212" y="690">FEMALE → PCB</text>
+    <text class="on-black" x="737" y="740">FEMALE → PCB</text>
+    <text class="on-black" x="1131" y="525">NOT USED</text>
+    <text class="on-black" x="1440" y="578">NOT USED</text>
+  </svg>
+  <figcaption><b>Figure 1.</b> The headers that come with the D1 Mini. The two male headers go on the D1 Mini, and the two female headers go on the PCB. The long-pin stacking headers are not used.</figcaption>
+</figure>
+
+<h2 class="pb"><span class="n">1</span>Check the orientation</h2>
+<p>The D1 Mini sits with its components facing up. Its <b>antenna end</b> points to the 9-pin header, and its <b>USB end</b> points to the <i>USB MICRO</i> label. Then the PCB labels match the D1 Mini: RST…3V3 on the left, TX…5V on the right. The label says USB MICRO, but the USB-C version has the same pins and fits the same way.</p>
+
+<div class="pair">
+  <figure>
+    <svg viewBox="0 -64 700 1324" xmlns="http://www.w3.org/2000/svg">
+      <image href="pcb-top.jpg" x="0" y="0" width="700" height="1260"/>
+      <rect x="168" y="78" width="338" height="68" rx="8" fill="none" stroke="#4dabf7" stroke-width="6"/>
+      <g class="tag"><rect x="110" y="-60" width="480" height="48" rx="10" stroke="#1c7ed6"/><text x="350" y="-36" fill="#1c7ed6">9-pin header (already fitted)</text></g>
+      <rect x="96" y="252" width="46" height="290" rx="12" fill="none" stroke="#ff922b" stroke-width="6"/>
+      <rect x="408" y="248" width="46" height="288" rx="12" fill="none" stroke="#ff922b" stroke-width="6"/>
+      <g class="tag"><rect x="150" y="410" width="250" height="84" rx="10" stroke="#e8590c"/><text x="275" y="436" fill="#e8590c">← female →</text><text x="275" y="470" fill="#e8590c">headers</text></g>
+      <g class="tag"><rect x="160" y="176" width="240" height="46" rx="10" stroke="#495057"/><text x="280" y="199" fill="#495057">↑ antenna end</text></g>
+      <g class="tag"><rect x="135" y="655" width="290" height="46" rx="10" stroke="#495057"/><text x="280" y="678" fill="#495057">↓ USB end</text></g>
+    </svg>
+    <figcaption><b>Figure 2.</b> Top of the PCB. The female headers go in the two rows of 8 holes.</figcaption>
+  </figure>
+  <figure>
+    <svg viewBox="-120 -64 880 904" xmlns="http://www.w3.org/2000/svg">
+      <image href="d1-front.jpg" x="0" y="0" width="640" height="770"/>
+      <g class="tag"><rect x="170" y="-60" width="300" height="48" rx="10" stroke="#495057"/><text x="320" y="-36" fill="#495057">↑ antenna end</text></g>
+      <g class="tag"><rect x="195" y="784" width="250" height="48" rx="10" stroke="#495057"/><text x="320" y="808" fill="#495057">↓ USB end</text></g>
+      <g class="tag"><rect x="-115" y="168" width="96" height="44" rx="10" stroke="#1c7ed6"/><text x="-67" y="190" fill="#1c7ed6">RST</text></g>
+      <line x1="-19" y1="190" x2="84" y2="190" stroke="#1c7ed6" stroke-width="4"/>
+      <g class="tag"><rect x="-115" y="502" width="96" height="44" rx="10" stroke="#1c7ed6"/><text x="-67" y="524" fill="#1c7ed6">3V3</text></g>
+      <line x1="-19" y1="524" x2="84" y2="524" stroke="#1c7ed6" stroke-width="4"/>
+      <g class="tag"><rect x="659" y="168" width="78" height="44" rx="10" stroke="#1c7ed6"/><text x="698" y="190" fill="#1c7ed6">TX</text></g>
+      <line x1="551" y1="190" x2="659" y2="190" stroke="#1c7ed6" stroke-width="4"/>
+      <g class="tag"><rect x="659" y="502" width="78" height="44" rx="10" stroke="#1c7ed6"/><text x="698" y="524" fill="#1c7ed6">5V</text></g>
+      <line x1="551" y1="524" x2="659" y2="524" stroke="#1c7ed6" stroke-width="4"/>
+    </svg>
+    <figcaption><b>Figure 3.</b> The D1 Mini, components up, the same way round as on the PCB.</figcaption>
+  </figure>
+</div>
+
+<h2 class="pb"><span class="n">2</span>Solder the headers</h2>
+<p>Use the D1 Mini itself as a jig, so that both headers end up straight and the D1 Mini plugs in without force later.</p>
+
+<figure>
+  <svg viewBox="0 70 720 300" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="15">
+    <!-- module PCB -->
+    <rect x="240" y="298" width="460" height="16" fill="#1f4396"/>
+    <!-- female header -->
+    <rect x="307" y="213" width="204" height="85" fill="#222"/>
+    <!-- male header plastic -->
+    <rect x="307" y="188" width="204" height="25" fill="#444"/>
+    <!-- D1 Mini board -->
+    <rect x="256" y="178" width="339" height="10" fill="#1d3a8a"/>
+    <rect x="550" y="158" width="45" height="20" rx="3" fill="#adb5bd"/>
+    <text x="572" y="150" text-anchor="middle" fill="#868e96" font-size="12">USB</text>
+    <g fill="#c9a227">
+      <rect x="318.5" y="158" width="3" height="20"/><rect x="343.9" y="158" width="3" height="20"/><rect x="369.3" y="158" width="3" height="20"/><rect x="394.7" y="158" width="3" height="20"/>
+      <rect x="420.1" y="158" width="3" height="20"/><rect x="445.5" y="158" width="3" height="20"/><rect x="470.9" y="158" width="3" height="20"/><rect x="496.3" y="158" width="3" height="20"/>
+      <rect x="318.5" y="314" width="3" height="16"/><rect x="343.9" y="314" width="3" height="16"/><rect x="369.3" y="314" width="3" height="16"/><rect x="394.7" y="314" width="3" height="16"/>
+      <rect x="420.1" y="314" width="3" height="16"/><rect x="445.5" y="314" width="3" height="16"/><rect x="470.9" y="314" width="3" height="16"/><rect x="496.3" y="314" width="3" height="16"/>
+    </g>
+    <g fill="#40c057">
+      <path d="M312 178 L328 178 L322 166 L318 166 Z"/><path d="M337.4 178 L353.4 178 L347.4 166 L343.4 166 Z"/><path d="M362.8 178 L378.8 178 L372.8 166 L368.8 166 Z"/><path d="M388.2 178 L404.2 178 L398.2 166 L394.2 166 Z"/>
+      <path d="M413.6 178 L429.6 178 L423.6 166 L419.6 166 Z"/><path d="M439 178 L455 178 L449 166 L445 166 Z"/><path d="M464.4 178 L480.4 178 L474.4 166 L470.4 166 Z"/><path d="M489.8 178 L505.8 178 L499.8 166 L495.8 166 Z"/>
+      <path d="M312 314 L328 314 L322 326 L318 326 Z"/><path d="M337.4 314 L353.4 314 L347.4 326 L343.4 326 Z"/><path d="M362.8 314 L378.8 314 L372.8 326 L368.8 326 Z"/><path d="M388.2 314 L404.2 314 L398.2 326 L394.2 326 Z"/>
+      <path d="M413.6 314 L429.6 314 L423.6 326 L419.6 326 Z"/><path d="M439 314 L455 314 L449 326 L445 326 Z"/><path d="M464.4 314 L480.4 314 L474.4 326 L470.4 326 Z"/><path d="M489.8 314 L505.8 314 L499.8 326 L495.8 326 Z"/>
+    </g>
+    <g fill="#495057" text-anchor="end">
+      <text x="220" y="187">D1 Mini (components up)</text>
+      <text x="220" y="215">male header</text>
+      <text x="220" y="260">female header</text>
+      <text x="220" y="311">module PCB</text>
+    </g>
+    <g stroke="#adb5bd" stroke-width="1.5">
+      <line x1="226" y1="182" x2="256" y2="182"/><line x1="226" y1="210" x2="307" y2="200"/><line x1="226" y1="255" x2="307" y2="255"/><line x1="226" y1="306" x2="240" y2="306"/>
+    </g>
+    <text x="409" y="100" text-anchor="middle" fill="#2b8a3e" font-weight="700">(a) solder 16 pins on top of the D1 Mini</text>
+    <path d="M409 110 L409 150" stroke="#2b8a3e" stroke-width="2.5" marker-end="url(#ah)"/>
+    <text x="409" y="362" text-anchor="middle" fill="#2b8a3e" font-weight="700">(b) then 16 pins under the PCB</text>
+    <path d="M550 357 L515 330" stroke="#2b8a3e" stroke-width="2.5" marker-end="url(#ah)"/>
+    <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2b8a3e"/></marker></defs>
+  </svg>
+  <figcaption><b>Figure 4.</b> Side view of the stack while soldering. Green marks the joints.</figcaption>
+</figure>
+
+<ol>
+  <li>From the top of the PCB, push the 2 female headers into the two rows of 8 holes.</li>
+  <li>Plug the 2 male headers into the female headers, long pins down.</li>
+  <li>Put the D1 Mini on the short pins, components up, antenna toward the 9-pin header (Figure 3).</li>
+  <li>Solder the 16 pins on top of the D1 Mini. Do one pin at each corner first, check that the D1 Mini lies flat, then do the rest.</li>
+  <li>Hold the stack together with Blu-Tack or tape, turn the board over, and solder the 16 female-header pins under the PCB the same way.</li>
+  <li>Pull the D1 Mini straight up out of the sockets.</li>
+</ol>
+
+<h2><span class="n">3</span>Cut the D3 pin off the D1 Mini</h2>
+<div class="pair" style="grid-template-columns: 1fr 1fr; align-items:start">
+  <figure style="margin-top:0">
+    <svg viewBox="-440 0 1300 1060" xmlns="http://www.w3.org/2000/svg">
+      <image href="d1-back.jpg" x="0" y="0" width="860" height="1060"/>
+      <circle cx="126" cy="503" r="36" fill="none" stroke="#e03131" stroke-width="7"/>
+      <g class="tag" style="font-size:44px"><rect x="-435" y="435" width="400" height="136" rx="14" stroke="#e03131"/><text x="-235" y="476" fill="#e03131" style="font-size:42px">D3 (marked 0)</text><text x="-235" y="530" fill="#e03131" style="font-size:42px">cut this pin</text></g>
+      <line x1="-35" y1="503" x2="88" y2="503" stroke="#e03131" stroke-width="6"/>
+    </svg>
+    <figcaption><b>Figure 5.</b> Underside of the D1 Mini. D3 is the 5th pin from TX.</figcaption>
+  </figure>
+  <div>
+    <p>The PCB connects the hall sensor to D3. On the ESP8266, D3 (GPIO0) decides how the chip boots. If the magnet happens to sit in front of the sensor at power-on, the module will not start. So the firmware reads the sensor on D0 instead, and D3 must not reach the D1 Mini.</p>
+    <ol>
+      <li>Turn the D1 Mini over and find the pin marked <b>0</b>. It is in the TX row, 5th from TX.</li>
+      <li>Cut that pin off flush with the black plastic. Wear glasses: the piece flies off.</li>
+    </ol>
+    <div class="note">Do this on <b>every</b> D1 Mini, including spares. A D1 Mini with the D3 pin still on it will short D3 to D0 once step 4 is done.</div>
+  </div>
+</div>
+
+<h2 class="pb"><span class="n">4</span>Add the fixes under the PCB</h2>
+<div class="bottom">
+  <figure style="margin-top:0">
+    <img src="bottom.svg" alt="Bottom view of the PCB with the wire and resistors">
+    <figcaption><b>Figure 6.</b> The underside, mirrored compared with the top. The pins have no labels on this side, so count from the 9-pin header.</figcaption>
+  </figure>
+  <div>
+    <h3>Every board</h3>
+    <table>
+      <tr><td><span class="swatch" style="background:#ff922b"></span><b>Wire</b></td><td>From <b>D3</b> to <b>D0</b>. This sends the hall sensor to D0.</td></tr>
+      <tr><td><span class="swatch" style="background:#8ce99a"></span><b>10 kΩ</b></td><td>From <b>D0</b> to <b>3V3</b>, in the same row. D0 has no internal pull-up, so without it the sensor input floats.</td></tr>
+    </table>
+    <h3>Master board only (one per display)</h3>
+    <table>
+      <tr><td><span class="swatch" style="background:#faa2c1"></span><b>4.7 kΩ</b></td><td>From <b>D1</b> (SCL) to the <b>3V3</b> pin of the 9-pin header.</td></tr>
+      <tr><td><span class="swatch" style="background:#faa2c1"></span><b>4.7 kΩ</b></td><td>From <b>D2</b> (SDA) to the same 3V3 pin. These are the I2C pull-ups for the whole display.</td></tr>
+      <tr><td><b>Reset button</b><br><span class="why">optional</span></td><td>Between <b>RST</b> and <b>GND</b> of the 9-pin header. You can also plug a 2-pin Dupont lead into the header from the top instead of soldering.</td></tr>
+    </table>
+    <p>Write <b>MASTER</b> on the master board.</p>
+    <div class="note">
+      <b>How to solder onto the existing joints:</b> tin the wire end or resistor leg, hold it against the joint, and touch it with the iron until the solder flows.
+      Keep the parts flat against the board so it still sits flat on the frame. Put sleeving on any bare leg that passes close to another pin.
+    </div>
+  </div>
+</div>
+
+<h2 class="pb"><span class="n">5</span>Check with a multimeter</h2>
+<p>Keep the D1 Mini unplugged. Look for solder bridges between neighbouring pins under a bright light first, then measure:</p>
+<table>
+  <tr><th>Measure between</th><th>Expected</th><th>If not</th></tr>
+  <tr><td>D3 and D0</td><td>Beeps (0 Ω)</td><td>Redo the wire</td></tr>
+  <tr><td>D0 and 3V3</td><td>About 10 kΩ</td><td>Check the 10 kΩ joints and the colour code</td></tr>
+  <tr><td>5V and GND (9-pin header)</td><td>No beep</td><td>Look for a bridge, often next to the GND pins</td></tr>
+  <tr><td>12V IN, pin to pin</td><td>No beep</td><td>Look for a bridge on the 12 V connectors</td></tr>
+  <tr><td>Master: D1 and 3V3, D2 and 3V3</td><td>About 4.7 kΩ each</td><td>Check the 4.7 kΩ joints</td></tr>
+</table>
+
+<h2><span class="n">6</span>Plug in the D1 Mini</h2>
+<p>Plug the D1 Mini back in: antenna toward the 9-pin header, USB end toward <i>USB MICRO</i> (Figures 2 and 3). The D3 socket stays empty. The board is ready. Flash the firmware over USB with <code>pio run -t upload</code> and <code>pio run -t uploadfs</code>.</p>
+
+<p class="why" style="margin-top:8mm; font-size:8.5pt">Pin positions in Figure 6 come from <code>pcb/PCB_PCB_SplitFlap_2023-06-04.json</code>. The fixes are the ones in the README's <i>Building Notes</i>. Source: <code>pcb/soldering/</code>.</p>
+
+</body>
+</html>

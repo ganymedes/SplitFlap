@@ -29,7 +29,9 @@ The ESP8266 core has a bad I2C implementation. I've patched it up manually to ke
 See [pcb/ORDERING.md](pcb/ORDERING.md) for a step-by-step guide to ordering the module PCB from JLCPCB, assembled except for the D1 Mini. It covers generating the Gerber, BOM and placement files in EasyEDA, every order option, and part matching.
 
 ## Building Notes
-The master device needs 2 4.7k pullup resistors on 4 and 5, that is, SDA and SCL. The hall sensor output also has to be rerouted to D0, and a 10k pullup should be added, since D0 does not have one internally. These features have not beed added to the schematic or the PCB, so if you build this as-is, expect a bit of manual work.
+The master device needs 2 4.7k pullup resistors on 4 and 5, that is, SDA and SCL. On every module, the hall sensor output also has to be rerouted to D0, and a 10k pullup should be added, since D0 does not have one internally. These features have not beed added to the schematic or the PCB, so if you build this as-is, expect a bit of manual work.
+
+[pcb/SOLDERING.pdf](pcb/SOLDERING.pdf) is a step-by-step soldering guide with photos. It covers fitting the D1 Mini on plug-in headers and making these fixes. Its source is in [pcb/soldering](pcb/soldering/).
 
 ## FAQ
 ### How do I disconnect my display from the network?
