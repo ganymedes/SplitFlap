@@ -20,6 +20,7 @@ ESP8266 (Wemos D1 Mini) firmware for split-flap display modules, built with Plat
 - `src/`, `include/`: firmware sources (C++ / Arduino framework)
 - `data/`: web frontend, uploaded to the LittleFS filesystem
 - `models/`, `pcb/`: 3D models and PCB files
+- `guides/`: step-by-step build guides as PDFs (`guides/<name>.pdf`), each built from an HTML source in `guides/src/<name>/`. List every guide in the README's *Guides* section.
 
 ## Build
 

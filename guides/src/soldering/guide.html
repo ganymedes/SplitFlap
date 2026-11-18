@@ -1,6 +1,6 @@
 <!doctype html>
-<!-- Source of ../SOLDERING.pdf. Rebuild: python3 bottom_svg.py bottom.svg, then print this page to PDF, e.g.
-     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --no-pdf-header-footer --print-to-pdf=../SOLDERING.pdf "file://$PWD/guide.html" -->
+<!-- Source of guides/soldering.pdf. Rebuild: python3 bottom_svg.py bottom.svg, then print this page to PDF, e.g.
+     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --no-pdf-header-footer --print-to-pdf=../../soldering.pdf "file://$PWD/guide.html" -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -222,7 +222,7 @@
       <tr><td><span class="swatch" style="background:#faa2c1"></span><b>4.7 kΩ</b></td><td>From <b>D2</b> (SDA) to the same 3V3 pin. These are the I2C pull-ups for the whole display.</td></tr>
       <tr><td><b>Reset button</b><br><span class="why">optional</span></td><td>Between <b>RST</b> and <b>GND</b> of the 9-pin header. You can also plug a 2-pin Dupont lead into the header from the top instead of soldering.</td></tr>
     </table>
-    <p>Write <b>MASTER</b> on the master board.</p>
+    <p>Write <b>MASTER</b> on the master board. The last page explains why each fix is needed.</p>
     <div class="note">
       <b>How to solder onto the existing joints:</b> tin the wire end or resistor leg, hold it against the joint, and touch it with the iron until the solder flows.
       Keep the parts flat against the board so it still sits flat on the frame. Put sleeving on any bare leg that passes close to another pin.
@@ -244,7 +244,16 @@
 <h2><span class="n">6</span>Plug in the D1 Mini</h2>
 <p>Plug the D1 Mini back in: antenna toward the 9-pin header, USB end toward <i>USB MICRO</i> (Figures 2 and 3). The D3 socket stays empty. The board is ready. Flash the firmware over USB with <code>pio run -t upload</code> and <code>pio run -t uploadfs</code>.</p>
 
-<p class="why" style="margin-top:8mm; font-size:8.5pt">Pin positions in Figure 6 come from <code>pcb/PCB_PCB_SplitFlap_2023-06-04.json</code>. The fixes are the ones in the README's <i>Building Notes</i>. Source: <code>pcb/soldering/</code>.</p>
+<h2 style="margin-top:9mm">Why these fixes are needed</h2>
+<p>The PCB is built exactly as designed, and the design is missing three things. The README's <i>Building Notes</i> mentions them in one short paragraph, but they were never added to the schematic or the PCB.</p>
+<h3>The hall sensor moves from D3 to D0</h3>
+<p>The PCB connects the sensor to D3, which is GPIO0 on the ESP8266. At power-on the chip reads GPIO0 to decide how to boot: if it is low, the chip waits for new firmware instead of starting. The sensor pulls its line low whenever the magnet is in front of it. So a module whose drum happened to stop there would not start. D0 plays no part in booting, and the firmware reads the sensor on D0 (<code>include/Config.h</code>). That is why the D3 pin is cut and the wire goes from D3 to D0.</p>
+<h3>A 10 kΩ pull-up on D0, on every board</h3>
+<p>The diode on the PCB keeps the sensor's 5 V away from the 3.3 V input, so the sensor can only pull the line low. Without a magnet, nothing pulls the line high, and the input floats and gives random readings. Most ESP8266 pins have a built-in pull-up resistor that the firmware switches on, but D0 does not have one. The 10 kΩ resistor to 3V3 does that job.</p>
+<h3>4.7 kΩ pull-ups on SDA and SCL, master only</h3>
+<p>All modules share one I2C bus. Each module can only pull SDA and SCL low, and resistors pull them back high. One pair is enough for the whole display. The other modules switch their built-in pull-ups off in slave mode (<code>src/main.cpp</code>), so the pull-ups sit on the master. The built-in ones are tens of kΩ, too weak for a bus that runs through ten modules and their cables, so the master gets 4.7 kΩ resistors.</p>
+
+<p class="why" style="margin-top:8mm; font-size:8.5pt">Pin positions in Figure 6 come from <code>pcb/PCB_PCB_SplitFlap_2023-06-04.json</code>. Source of this guide: <code>guides/src/soldering/</code>.</p>
 
 </body>
 </html>
