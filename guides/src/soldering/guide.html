@@ -199,7 +199,7 @@
   <li>From the top of the PCB, push the 2 female headers into the two rows of 8 holes.</li>
   <li>Plug the 2 male headers into the female headers, long pins down. The header with the gap goes in the TX…5V row, with the gap at D3.</li>
   <li>Put the D1 Mini on the short pins, components up, antenna toward the 9-pin header (Figure 3).</li>
-  <li>Solder the 15 pins on top of the D1 Mini. Do one pin at each corner first, check that the D1 Mini lies flat, then do the rest. The D3 hole stays empty.</li>
+  <li>Solder the 15 pins on top of the D1 Mini. Do one pin at each corner first, check that the D1 Mini lies flat, then do the rest. The D3 hole stays empty (Figure 7).</li>
   <li>Hold the stack together with Blu-Tack or tape, turn the board over, and solder all 16 female-header pins under the PCB the same way, including D3: the wire in step 4 goes onto it.</li>
   <li>Pull the D1 Mini straight up out of the sockets.</li>
 </ol>
@@ -242,9 +242,24 @@
 </table>
 
 <h2><span class="n">6</span>Plug in the D1 Mini</h2>
-<p>Plug the D1 Mini back in: antenna toward the 9-pin header, USB end toward <i>USB MICRO</i> (Figures 2 and 3). The D3 socket stays empty. The board is ready. Flash the firmware over USB with <code>pio run -t upload</code> and <code>pio run -t uploadfs</code>.</p>
+<div class="pair" style="grid-template-columns: 1.7fr 1fr; align-items:start">
+  <figure style="margin-top:0">
+    <svg viewBox="0 0 900 730" xmlns="http://www.w3.org/2000/svg">
+      <image href="pcb-d1-mounted.jpg" x="0" y="0" width="660" height="730"/>
+      <circle cx="410" cy="378" r="24" fill="none" stroke="#e03131" stroke-width="6"/>
+      <line x1="434" y1="378" x2="672" y2="378" stroke="#e03131" stroke-width="5"/>
+      <g class="tag"><rect x="672" y="330" width="222" height="96" rx="12" stroke="#e03131"/><text x="783" y="360" fill="#e03131">D3: no pin,</text><text x="783" y="396" fill="#e03131">no solder</text></g>
+    </svg>
+    <figcaption><b>Figure 7.</b> A finished board with the D1 Mini plugged in (photo montage). 15 pins are soldered; the D3 hole is empty.</figcaption>
+  </figure>
+  <div>
+    <p>Plug the D1 Mini back in: antenna toward the 9-pin header, USB end toward <i>USB MICRO</i> (Figures 2 and 3).</p>
+    <p>Check the TX…5V row on top of the D1 Mini: the 5th hole from TX (D3) has no pin and no solder, as in Figure 7.</p>
+    <p>The board is ready. Flash the firmware over USB with <code>pio run -t upload</code> and <code>pio run -t uploadfs</code>.</p>
+  </div>
+</div>
 
-<h2 style="margin-top:9mm">Why these fixes are needed</h2>
+<h2 class="pb">Why these fixes are needed</h2>
 <p>The PCB is built exactly as designed, and the design is missing three things. The README's <i>Building Notes</i> mentions them in one short paragraph, but they were never added to the schematic or the PCB.</p>
 <h3>The hall sensor moves from D3 to D0</h3>
 <p>The PCB connects the sensor to D3, which is GPIO0 on the ESP8266. At power-on the chip reads GPIO0 to decide how to boot: if it is low, the chip waits for new firmware instead of starting. The sensor pulls its line low whenever the magnet is in front of it. So a module whose drum happened to stop there would not start. D0 plays no part in booting, and the firmware reads the sensor on D0 (<code>include/Config.h</code>). That is why the D1 Mini has no D3 pin and the wire goes from D3 to D0.</p>
