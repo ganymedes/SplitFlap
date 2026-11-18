@@ -72,7 +72,7 @@
     <ul>
       <li>Soldering iron, about 330–350 °C</li>
       <li>Solder (0.5–0.8 mm)</li>
-      <li>Flush cutters</li>
+      <li>Flush cutters and flat pliers</li>
       <li>Multimeter with a continuity beep</li>
       <li>Blu-Tack or tape, to hold parts while soldering</li>
       <li>Heat-shrink or sleeving for long resistor legs</li>
@@ -129,10 +129,31 @@
   </figure>
 </div>
 
-<h2 class="pb"><span class="n">2</span>Solder the headers</h2>
+<h2 class="pb"><span class="n">2</span>Take the D3 pin out of one male header</h2>
+<div class="pair" style="grid-template-columns: 0.75fr 1fr; align-items:start">
+  <figure style="margin-top:0">
+    <svg viewBox="-440 0 1300 1060" xmlns="http://www.w3.org/2000/svg">
+      <image href="d1-back.jpg" x="0" y="0" width="860" height="1060"/>
+      <circle cx="126" cy="503" r="36" fill="none" stroke="#e03131" stroke-width="7"/>
+      <g class="tag" style="font-size:44px"><rect x="-435" y="435" width="400" height="136" rx="14" stroke="#e03131"/><text x="-235" y="476" fill="#e03131" style="font-size:42px">D3 (marked 0)</text><text x="-235" y="530" fill="#e03131" style="font-size:42px">no pin here</text></g>
+      <line x1="-35" y1="503" x2="88" y2="503" stroke="#e03131" stroke-width="6"/>
+    </svg>
+    <figcaption><b>Figure 4.</b> Underside of the D1 Mini. D3 is the hole marked 0, 5th from TX.</figcaption>
+  </figure>
+  <div>
+    <p>The PCB connects the hall sensor to D3. On the ESP8266, D3 (GPIO0) decides how the chip boots. If the magnet happens to sit in front of the sensor at power-on, the module will not start. So the firmware reads the sensor on D0 instead, and D3 of the D1 Mini must not reach the PCB. You leave out that one pin before soldering.</p>
+    <ol>
+      <li>Put one male header into the D1 Mini's TX row, from the underside. Mark the pin that sits in the hole marked <b>0</b>, 5th from TX. The strip is symmetric, so this is easy to count from the wrong end.</li>
+      <li>Take the header out and push the marked pin out of the black plastic with flat pliers. Or cut its long side flush with the plastic; wear glasses, the piece flies off.</li>
+    </ol>
+    <div class="note">Do this for <b>every</b> D1 Mini, including spares. A D1 Mini with a D3 pin connects D3 to D0 through the wire from step 4, and the boot problem comes back.</div>
+  </div>
+</div>
+
+<h2><span class="n">3</span>Solder the headers</h2>
 <p>Use the D1 Mini itself as a jig, so that both headers end up straight and the D1 Mini plugs in without force later.</p>
 
-<figure>
+<figure style="width:85%; margin-left:auto; margin-right:auto">
   <svg viewBox="0 70 720 300" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="15">
     <!-- module PCB -->
     <rect x="240" y="298" width="460" height="16" fill="#1f4396"/>
@@ -165,44 +186,23 @@
     <g stroke="#adb5bd" stroke-width="1.5">
       <line x1="226" y1="182" x2="256" y2="182"/><line x1="226" y1="210" x2="307" y2="200"/><line x1="226" y1="255" x2="307" y2="255"/><line x1="226" y1="306" x2="240" y2="306"/>
     </g>
-    <text x="409" y="100" text-anchor="middle" fill="#2b8a3e" font-weight="700">(a) solder 16 pins on top of the D1 Mini</text>
+    <text x="409" y="100" text-anchor="middle" fill="#2b8a3e" font-weight="700">(a) solder 15 pins on top of the D1 Mini</text>
     <path d="M409 110 L409 150" stroke="#2b8a3e" stroke-width="2.5" marker-end="url(#ah)"/>
     <text x="409" y="362" text-anchor="middle" fill="#2b8a3e" font-weight="700">(b) then 16 pins under the PCB</text>
     <path d="M550 357 L515 330" stroke="#2b8a3e" stroke-width="2.5" marker-end="url(#ah)"/>
     <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2b8a3e"/></marker></defs>
   </svg>
-  <figcaption><b>Figure 4.</b> Side view of the stack while soldering. Green marks the joints.</figcaption>
+  <figcaption><b>Figure 5.</b> Side view of the stack while soldering. Green marks the joints.</figcaption>
 </figure>
 
 <ol>
   <li>From the top of the PCB, push the 2 female headers into the two rows of 8 holes.</li>
-  <li>Plug the 2 male headers into the female headers, long pins down.</li>
+  <li>Plug the 2 male headers into the female headers, long pins down. The header with the gap goes in the TX…5V row, with the gap at D3.</li>
   <li>Put the D1 Mini on the short pins, components up, antenna toward the 9-pin header (Figure 3).</li>
-  <li>Solder the 16 pins on top of the D1 Mini. Do one pin at each corner first, check that the D1 Mini lies flat, then do the rest.</li>
-  <li>Hold the stack together with Blu-Tack or tape, turn the board over, and solder the 16 female-header pins under the PCB the same way.</li>
+  <li>Solder the 15 pins on top of the D1 Mini. Do one pin at each corner first, check that the D1 Mini lies flat, then do the rest. The D3 hole stays empty.</li>
+  <li>Hold the stack together with Blu-Tack or tape, turn the board over, and solder all 16 female-header pins under the PCB the same way, including D3: the wire in step 4 goes onto it.</li>
   <li>Pull the D1 Mini straight up out of the sockets.</li>
 </ol>
-
-<h2><span class="n">3</span>Cut the D3 pin off the D1 Mini</h2>
-<div class="pair" style="grid-template-columns: 1fr 1fr; align-items:start">
-  <figure style="margin-top:0">
-    <svg viewBox="-440 0 1300 1060" xmlns="http://www.w3.org/2000/svg">
-      <image href="d1-back.jpg" x="0" y="0" width="860" height="1060"/>
-      <circle cx="126" cy="503" r="36" fill="none" stroke="#e03131" stroke-width="7"/>
-      <g class="tag" style="font-size:44px"><rect x="-435" y="435" width="400" height="136" rx="14" stroke="#e03131"/><text x="-235" y="476" fill="#e03131" style="font-size:42px">D3 (marked 0)</text><text x="-235" y="530" fill="#e03131" style="font-size:42px">cut this pin</text></g>
-      <line x1="-35" y1="503" x2="88" y2="503" stroke="#e03131" stroke-width="6"/>
-    </svg>
-    <figcaption><b>Figure 5.</b> Underside of the D1 Mini. D3 is the 5th pin from TX.</figcaption>
-  </figure>
-  <div>
-    <p>The PCB connects the hall sensor to D3. On the ESP8266, D3 (GPIO0) decides how the chip boots. If the magnet happens to sit in front of the sensor at power-on, the module will not start. So the firmware reads the sensor on D0 instead, and D3 must not reach the D1 Mini.</p>
-    <ol>
-      <li>Turn the D1 Mini over and find the pin marked <b>0</b>. It is in the TX row, 5th from TX.</li>
-      <li>Cut that pin off flush with the black plastic. Wear glasses: the piece flies off.</li>
-    </ol>
-    <div class="note">Do this on <b>every</b> D1 Mini, including spares. A D1 Mini with the D3 pin still on it will short D3 to D0 once step 4 is done.</div>
-  </div>
-</div>
 
 <h2 class="pb"><span class="n">4</span>Add the fixes under the PCB</h2>
 <div class="bottom">
@@ -247,7 +247,7 @@
 <h2 style="margin-top:9mm">Why these fixes are needed</h2>
 <p>The PCB is built exactly as designed, and the design is missing three things. The README's <i>Building Notes</i> mentions them in one short paragraph, but they were never added to the schematic or the PCB.</p>
 <h3>The hall sensor moves from D3 to D0</h3>
-<p>The PCB connects the sensor to D3, which is GPIO0 on the ESP8266. At power-on the chip reads GPIO0 to decide how to boot: if it is low, the chip waits for new firmware instead of starting. The sensor pulls its line low whenever the magnet is in front of it. So a module whose drum happened to stop there would not start. D0 plays no part in booting, and the firmware reads the sensor on D0 (<code>include/Config.h</code>). That is why the D3 pin is cut and the wire goes from D3 to D0.</p>
+<p>The PCB connects the sensor to D3, which is GPIO0 on the ESP8266. At power-on the chip reads GPIO0 to decide how to boot: if it is low, the chip waits for new firmware instead of starting. The sensor pulls its line low whenever the magnet is in front of it. So a module whose drum happened to stop there would not start. D0 plays no part in booting, and the firmware reads the sensor on D0 (<code>include/Config.h</code>). That is why the D1 Mini has no D3 pin and the wire goes from D3 to D0.</p>
 <h3>A 10 kΩ pull-up on D0, on every board</h3>
 <p>The diode on the PCB keeps the sensor's 5 V away from the 3.3 V input, so the sensor can only pull the line low. Without a magnet, nothing pulls the line high, and the input floats and gives random readings. Most ESP8266 pins have a built-in pull-up resistor that the firmware switches on, but D0 does not have one. The 10 kΩ resistor to 3V3 does that job.</p>
 <h3>4.7 kΩ pull-ups on SDA and SCL, master only</h3>

@@ -40,7 +40,7 @@ The PCB is missing three fixes. They have not been added to the schematic or the
 
 | Fix | Boards | Parts |
 |---|---|---|
-| Reroute the hall sensor from D3 to D0 | Every module | Cut the D1 Mini's D3 pin, add a wire from D3 to D0 |
+| Reroute the hall sensor from D3 to D0 | Every module | Remove the D3 pin from the D1 Mini's male header before soldering it, add a wire from D3 to D0 |
 | Pullup on D0 | Every module | 1 × 10 kΩ from D0 to 3V3 |
 | I2C pullups | Master only (one per display) | 2 × 4.7 kΩ, from SDA (D2) and from SCL (D1) to 3V3 |
 
