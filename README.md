@@ -50,6 +50,23 @@ Why each fix is needed:
 - **10 kΩ pullup on D0.** The diode on the PCB keeps the sensor's 5 V away from the 3.3 V input, so the sensor can only pull the line low. Without a magnet nothing pulls the line high, and the input floats and gives random readings. Most ESP8266 pins have a built-in pullup, but D0 does not.
 - **4.7 kΩ pullups on SDA and SCL.** All modules share one I2C bus. Each module can only pull the lines low, and the pullups pull them back high. One pair is enough for the whole display. The other modules switch their built-in pullups off in slave mode ([src/main.cpp](src/main.cpp)), so the pullups sit on the master. The built-in ones are too weak for a bus that runs through ten modules and their cables.
 
+## Wiring
+Each module PCB has six JST-XH sockets. The motor, hall sensor, power supply, converter and connector parts are listed in [pcb/ORDERING.md](pcb/ORDERING.md#parts-jlcpcb-doesnt-assemble).
+
+| Socket | Pins | Connects to |
+|---|---|---|
+| 12VIN, 12VOUT | 1 = +12 V, 2 = GND | The 12 V supply, and on to the next module. The two sockets are wired together. |
+| I2C-A, I2C-B | 1 = GND, 2 = +5 V, 3 = SDA, 4 = SCL | The previous and the next module, pin 1 to pin 1. The two sockets are wired together. |
+| 5-pin motor socket | 1–4 = coils, 5 = +12 V | The 28BYJ-48 motor. Its plug fits directly. |
+| HALL | 1 = GND, 2 = +5 V, 3 = signal | The KY-003 hall sensor. |
+
+### Power
+The PCB has no voltage regulator. The 12 V only reaches the motor and the ULN2003. The D1 Mini and the hall sensor run on a separate 5 V line, and every module gets it through the I2C cables.
+
+- **One 12 V → 5 V step-down converter per display.** Use one with a fixed 5 V output, rated 2.5 A or more, which is plenty for 10 modules. Connect its input to the 12 V supply. Connect its output to a free I2C socket, + to pin 2 and GND to pin 1.
+- **Never put 12 V on the 5 V line.** The D1 Mini's 5V pin can't take it.
+- **Testing a single module without the converter:** plug USB into its D1 Mini, which also powers the 5 V line, and connect 12 V to 12VIN for the motor.
+
 ## FAQ
 ### How do I disconnect my display from the network?
 There's a reset button on the left side. Press it three times. This should clear your credentials.

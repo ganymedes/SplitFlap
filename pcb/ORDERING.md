@@ -138,7 +138,7 @@ Follow the [soldering guide](../guides/soldering.pdf). In short:
 
 ## Parts JLCPCB doesn't assemble
 
-Order these separately (they're also listed in the README):
+Order these separately. The README's *Wiring* section shows where they connect.
 
 - Wemos D1 Mini
 - 28BYJ-48 **12 V** motor
