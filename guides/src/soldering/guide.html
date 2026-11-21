@@ -47,9 +47,9 @@
 <body>
 
 <h1>SplitFlap module PCB: soldering guide</h1>
-<p class="sub">Fitting the Wemos D1 Mini and the two fixes the board needs. One board per character.</p>
+<p class="sub">Fitting the Wemos D1 Mini and the fixes the board needs. One board per character.</p>
 
-<p>JLCPCB delivers the board with every part fitted except the D1 Mini. You fit the D1 Mini on plug-in headers, so you can take it out again later. Then you add two small fixes underneath that are missing from the PCB design. Allow about 15 minutes per board.</p>
+<p>JLCPCB delivers the board with every part fitted except the D1 Mini. You fit the D1 Mini on plug-in headers, so you can take it out again later. Then you add three small fixes underneath that are missing from the PCB design, and two more on the master board. Allow about 20 minutes per board.</p>
 
 <div class="cols">
   <div class="box">
@@ -59,6 +59,7 @@
       <li>1 Wemos D1 Mini (ESP8266, without metal shield; the USB-C v4 is fine)</li>
       <li>2 × 8-pin male header and 2 × 8-pin female header (they come with the D1 Mini)</li>
       <li>1 × 10 kΩ resistor, ¼ W through-hole</li>
+      <li>1 × 10 nF ceramic capacitor, 50 V or more, through-hole (often marked 103)</li>
       <li>About 4 cm of thin insulated wire (26–30 AWG)</li>
     </ul>
     <h3>Extra for the master board (one per display)</h3>
@@ -215,6 +216,7 @@
     <table>
       <tr><td><span class="swatch" style="background:#ff922b"></span><b>Wire</b></td><td>From <b>D3</b> to <b>D0</b>. This sends the hall sensor to D0.</td></tr>
       <tr><td><span class="swatch" style="background:#8ce99a"></span><b>10 kΩ</b></td><td>From <b>D0</b> to <b>3V3</b>, in the same row. D0 has no internal pull-up, so without it the sensor input floats.</td></tr>
+      <tr><td><span class="swatch" style="background:#74c0fc"></span><b>10 nF</b></td><td>From ULN2003 <b>pin 8</b> (GND) to <b>pin 9</b> (COM, +12 V). They are the two chip pins next to the 12V sockets, opposite each other. It damps the voltage spikes from the motor coils.</td></tr>
     </table>
     <h3>Master board only (one per display)</h3>
     <table>
@@ -237,7 +239,7 @@
   <tr><td>D3 and D0</td><td>Beeps (0 Ω)</td><td>Redo the wire</td></tr>
   <tr><td>D0 and 3V3</td><td>About 10 kΩ</td><td>Check the 10 kΩ joints and the colour code</td></tr>
   <tr><td>5V and GND (9-pin header)</td><td>No beep</td><td>Look for a bridge, often next to the GND pins</td></tr>
-  <tr><td>12V IN, pin to pin</td><td>No beep</td><td>Look for a bridge on the 12 V connectors</td></tr>
+  <tr><td>12V IN, pin to pin</td><td>No beep</td><td>Look for a bridge on the 12 V connectors and at the 10 nF capacitor</td></tr>
   <tr><td>Master: D1 and 3V3, D2 and 3V3</td><td>About 4.7 kΩ each</td><td>Check the 4.7 kΩ joints</td></tr>
 </table>
 
@@ -256,17 +258,20 @@
     <p>Plug the D1 Mini back in: antenna toward the 9-pin header, USB end toward <i>USB MICRO</i> (Figures 2 and 3).</p>
     <p>Check the TX…5V row on top of the D1 Mini: the 5th hole from TX (D3) has no pin and no solder, as in Figure 7.</p>
     <p>The board is ready. Flash the firmware over USB with <code>pio run -t upload</code> and <code>pio run -t uploadfs</code>.</p>
+    <div class="note">Once the board is wired into a display with the 5 V converter, switch the 12 V on <b>before</b> you plug USB into any D1 Mini. With the 12 V off, the USB power flows backwards through the converter into the 12 V line and tries to run the motors. See <i>Power</i> in the README.</div>
   </div>
 </div>
 
 <h2 class="pb">Why these fixes are needed</h2>
-<p>The PCB is built exactly as designed, and the design is missing three things. The README's <i>Building Notes</i> mentions them in one short paragraph, but they were never added to the schematic or the PCB.</p>
+<p>The PCB is built exactly as designed, and the design is missing four things. The README's <i>Building Notes</i> lists them, but they were never added to the schematic or the PCB.</p>
 <h3>The hall sensor moves from D3 to D0</h3>
 <p>The PCB connects the sensor to D3, which is GPIO0 on the ESP8266. At power-on the chip reads GPIO0 to decide how to boot: if it is low, the chip waits for new firmware instead of starting. The sensor pulls its line low whenever the magnet is in front of it. So a module whose drum happened to stop there would not start. D0 plays no part in booting, and the firmware reads the sensor on D0 (<code>include/Config.h</code>). That is why the D1 Mini has no D3 pin and the wire goes from D3 to D0.</p>
 <h3>A 10 kΩ pull-up on D0, on every board</h3>
 <p>The diode on the PCB keeps the sensor's 5 V away from the 3.3 V input, so the sensor can only pull the line low. Without a magnet, nothing pulls the line high, and the input floats and gives random readings. Most ESP8266 pins have a built-in pull-up resistor that the firmware switches on, but D0 does not have one. The 10 kΩ resistor to 3V3 does that job.</p>
 <h3>4.7 kΩ pull-ups on SDA and SCL, master only</h3>
 <p>All modules share one I2C bus. Each module can only pull SDA and SCL low, and resistors pull them back high. One pair is enough for the whole display. The other modules switch their built-in pull-ups off in slave mode (<code>src/main.cpp</code>), so the pull-ups sit on the master. The built-in ones are tens of kΩ, too weak for a bus that runs through ten modules and their cables, so the master gets 4.7 kΩ resistors.</p>
+<h3>A 10 nF capacitor on the ULN2003, on every board</h3>
+<p>Each time the ULN2003 switches a motor coil off, the coil sends a voltage spike back into the 12 V line through the chip's COM pin. The board has no capacitor on the 12 V line, and ten modules share one supply and its cables. The 10 nF capacitor damps the spikes right at the chip. dmlambo, who designed this board, lists it in issue #1 of the original repository (<code>github.com/dmlambo/SplitFlap/issues/1</code>).</p>
 
 <p class="why" style="margin-top:8mm; font-size:8.5pt">Pin positions in Figure 6 come from <code>pcb/PCB_PCB_SplitFlap_2023-06-04.json</code>. Source of this guide: <code>guides/src/soldering/</code>.</p>
 

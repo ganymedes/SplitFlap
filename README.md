@@ -33,17 +33,17 @@ Step-by-step guides with photos are in [guides/](guides/). Their sources (HTML, 
 
 | Guide | Covers |
 |---|---|
-| [Soldering](guides/soldering.pdf) | Fitting the D1 Mini to the module PCB on plug-in headers, the first three fixes from *Building Notes* below, and multimeter checks |
+| [Soldering](guides/soldering.pdf) | Fitting the D1 Mini to the module PCB on plug-in headers, the fixes from *Building Notes* below, the USB power rule, and multimeter checks |
 
 ## Building Notes
-The PCB is missing four fixes. They have not been added to the schematic or the PCB, so you add them by hand. The [soldering guide](guides/soldering.pdf) shows where to add the first three.
+The PCB is missing four fixes. They have not been added to the schematic or the PCB, so you add them by hand. The [soldering guide](guides/soldering.pdf) shows where.
 
 | Fix | Boards | Parts |
 |---|---|---|
 | Reroute the hall sensor from D3 to D0 | Every module | Remove the D3 pin from the D1 Mini's male header before soldering it, add a wire from D3 to D0 |
 | Pullup on D0 | Every module | 1 × 10 kΩ from D0 to 3V3 |
 | I2C pullups | Master only (one per display) | 2 × 4.7 kΩ, from SDA (D2) and from SCL (D1) to 3V3 |
-| Capacitor on the motor driver | Every module | 1 × 10 nF ceramic, 50 V, under the board between pins 8 (GND) and 9 (COM) of the ULN2003 (U4). The two pins sit opposite each other at the end away from the chip's notch. |
+| Capacitor on the motor driver | Every module | 1 × 10 nF ceramic, 50 V, under the board between pins 8 (GND) and 9 (COM) of the ULN2003 (U4). They are the two chip pins next to the 12V sockets, opposite each other. |
 
 Why each fix is needed:
 

@@ -66,6 +66,14 @@ for (pin, bxm, ytop) in [('D1', 60, 44), ('D2', 71, 40)]:
     a(f'<rect x="{bxm-4.2}" y="{ytop+9}" width="8.4" height="24" rx="3" fill="#faa2c1" stroke="#c2255c" stroke-width=".8"/>')
 a(f'<text class="ml" fill="#fcc2d7" x="77.5" y="64" >4.7 kΩ ×2</text>')
 a(f'<text class="ml" fill="#fcc2d7" x="77.5" y="71" font-size="4.6px">master only</text>')
+# 10 nF: ULN2003 pin 8 (GND) -> pin 9 (COM, +12V), the pins next to the 12V sockets
+p8, p9u = P(4060.5, 3333), P(4060.5, 3363)
+a(f'<text class="pl" x="{p8[0]}" y="{p8[1]-5}" text-anchor="middle">8</text>')
+a(f'<text class="pl" x="{p9u[0]}" y="{p9u[1]+8.5}" text-anchor="middle">9</text>')
+a(f'<path d="M {p8[0]} {p8[1]} L {p9u[0]} {p9u[1]}" stroke="#c9ced6" stroke-width="1.1"/>')
+cy = (p8[1] + p9u[1]) / 2
+a(f'<rect x="{p8[0]-5.5}" y="{cy-5}" width="11" height="10" rx="4.5" fill="#74c0fc" stroke="#1c7ed6" stroke-width=".8"/>')
+a(f'<text class="ml" fill="#a5d8ff" x="{p8[0]+8}" y="{cy-3}">10 nF</text>')
 # view label
 a(f'<text x="{W/2}" y="{H+8.5}" text-anchor="middle" font-size="6px" fill="#333" font-weight="700">BOTTOM VIEW · 9-pin header at the top</text>')
 a('</svg>')
