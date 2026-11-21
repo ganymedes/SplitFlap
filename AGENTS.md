@@ -8,10 +8,14 @@ Instructions for AI coding agents working in this repository.
 - `origin` is our fork (`github.com/ganymedes/SplitFlap`). Never push to the upstream repository.
 - Use small, focused commits with a descriptive message.
 
-## Keep README.md in sync
+## Keep the docs in sync
 
-- Every change must leave `README.md` accurate. When a change affects anything the README describes (features, web UI or REST API, serial commands, reset-button behaviour, pins and wiring, build or flashing steps, dependencies), update the README in the same commit.
-- If you notice the README already disagrees with the code, fix the README (or flag it if the code looks wrong).
+The docs are `README.md`, the other `.md` files (such as `pcb/ORDERING.md` and `models/print/README.md`) and the PDF guides in `guides/`.
+
+- Every change must leave the docs accurate. When a change affects anything they describe (features, web UI or REST API, serial commands, reset-button behaviour, pins and wiring, PCB fixes, parts, build, flashing or assembly steps, dependencies), update every affected doc in the same commit.
+- The same applies to decisions and new findings, even when no code changes. Examples: a PCB fix found in an upstream issue, a measured value, a part choice. Write them into every doc they affect.
+- A PDF guide is updated through its HTML source in `guides/src/<name>/`, and then the PDF is rebuilt from it. Commit the source and the PDF together.
+- If you notice a doc already disagrees with the code or with what we know, fix the doc (or flag it if the code looks wrong).
 
 ## Project
 
