@@ -216,7 +216,7 @@
     <table>
       <tr><td><span class="swatch" style="background:#ff922b"></span><b>Wire</b></td><td>From <b>D3</b> to <b>D0</b>. This sends the hall sensor to D0.</td></tr>
       <tr><td><span class="swatch" style="background:#8ce99a"></span><b>10 kΩ</b></td><td>From <b>D0</b> to <b>3V3</b>, in the same row. D0 has no internal pull-up, so without it the sensor input floats.</td></tr>
-      <tr><td><span class="swatch" style="background:#74c0fc"></span><b>10 nF</b></td><td>From ULN2003 <b>pin 8</b> (GND) to <b>pin 9</b> (COM, +12 V). They are the two chip pins next to the 12V sockets, opposite each other. It damps the voltage spikes from the motor coils.</td></tr>
+      <tr><td><span class="swatch" style="background:#74c0fc"></span><b>10 nF</b></td><td>From ULN2003 <b>pin 8</b> (GND) to <b>pin 9</b> (COM, +12 V). They are the two chip pins next to the 12V sockets, opposite each other. The board's designer recommends it; see the last page.</td></tr>
     </table>
     <h3>Master board only (one per display)</h3>
     <table>
@@ -258,7 +258,7 @@
     <p>Plug the D1 Mini back in: antenna toward the 9-pin header, USB end toward <i>USB MICRO</i> (Figures 2 and 3).</p>
     <p>Check the TX…5V row on top of the D1 Mini: the 5th hole from TX (D3) has no pin and no solder, as in Figure 7.</p>
     <p>The board is ready. Flash the firmware over USB with <code>pio run -t upload</code> and <code>pio run -t uploadfs</code>.</p>
-    <div class="note">Once the board is wired into a display with the 5 V converter, switch the 12 V on <b>before</b> you plug USB into any D1 Mini. With the 12 V off, the USB power flows backwards through the converter into the 12 V line and tries to run the motors. See <i>Power</i> in the README.</div>
+    <div class="note">Once the board is wired into a display with the 5 V converter, switch the 12 V on <b>before</b> you plug USB into any D1 Mini, or unplug the converter first. The board's designer reports that when the board runs from USB, current flows back through the converter into the 12 V side and tries to run the motors. See <i>Power</i> in the README.</div>
   </div>
 </div>
 
@@ -271,7 +271,8 @@
 <h3>4.7 kΩ pull-ups on SDA and SCL, master only</h3>
 <p>All modules share one I2C bus. Each module can only pull SDA and SCL low, and resistors pull them back high. One pair is enough for the whole display. The other modules switch their built-in pull-ups off in slave mode (<code>src/main.cpp</code>), so the pull-ups sit on the master. The built-in ones are tens of kΩ, too weak for a bus that runs through ten modules and their cables, so the master gets 4.7 kΩ resistors.</p>
 <h3>A 10 nF capacitor on the ULN2003, on every board</h3>
-<p>Each time the ULN2003 switches a motor coil off, the coil sends a voltage spike back into the 12 V line through the chip's COM pin. The board has no capacitor on the 12 V line, and ten modules share one supply and its cables. The 10 nF capacitor damps the spikes right at the chip. dmlambo, who designed this board, lists it in issue #1 of the original repository (<code>github.com/dmlambo/SplitFlap/issues/1</code>).</p>
+<p>dmlambo, who designed this board, lists this fix in issue #1 of the original repository (<code>github.com/dmlambo/SplitFlap/issues/1</code>): “add small cap between com and ground on driver chip (7-10nF)”. The issue gives no reason.</p>
+<p><i>Our explanation:</i> each time the ULN2003 switches a motor coil off, the coil sends a short voltage spike back into the 12 V line through the COM pin, and the board has no capacitor on the 12 V line to absorb it. A display without it probably still works. The capacitor is cheap insurance against noise on the lines all modules share.</p>
 
 <p class="why" style="margin-top:8mm; font-size:8.5pt">Pin positions in Figure 6 come from <code>pcb/PCB_PCB_SplitFlap_2023-06-04.json</code>. Source of this guide: <code>guides/src/soldering/</code>.</p>
 
