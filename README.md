@@ -33,7 +33,7 @@ Step-by-step guides with photos are in [guides/](guides/). Their sources (HTML, 
 
 | Guide | Covers |
 |---|---|
-| [Soldering](guides/soldering.pdf) | Fitting the D1 Mini to the module PCB on plug-in headers, the fixes from *Building Notes* below, the USB power rule, and multimeter checks |
+| [Soldering](guides/soldering.pdf) | Fitting the D1 Mini to the module PCB on plug-in headers, the fixes from *Building Notes* below, the USB power rule, multimeter checks, and wiring the 5 V converter |
 
 ## Building Notes
 The PCB is missing four fixes. They have not been added to the schematic or the PCB, so you add them by hand. The [soldering guide](guides/soldering.pdf) shows where.
@@ -62,10 +62,12 @@ Each module PCB has six JST-XH sockets. The motor, hall sensor, power supply, co
 | 5-pin motor socket | 1–4 = coils, 5 = +12 V | The 28BYJ-48 motor. Its plug fits directly. |
 | HALL | 1 = GND, 2 = +5 V, 3 = signal | The KY-003 hall sensor. |
 
+Chain the modules: the 12 V supply goes into 12VIN of module 1, each module's 12VOUT goes to the next module's 12VIN, and each I2C-B goes to the next module's I2C-A. The master can be any module. Figure 8 in the [soldering guide](guides/soldering.pdf) shows the whole chain.
+
 ### Power
 The PCB has no voltage regulator. The 12 V only reaches the motor and the ULN2003. The D1 Mini and the hall sensor run on a separate 5 V line, and every module gets it through the I2C cables.
 
-- **One 12 V → 5 V step-down converter per display.** Use one with a fixed 5 V output, rated 2.5 A or more. Our estimate, not measured: about 80 mA per D1 Mini, with short WiFi peaks above that, so about 1 A for 10 modules. Connect its input to the 12 V supply. Connect its output to a free I2C socket, + to pin 2 and GND to pin 1.
+- **One 12 V → 5 V step-down converter per display.** Use one with a fixed 5 V output, rated 2.5 A or more. Our estimate, not measured: about 80 mA per D1 Mini, with short WiFi peaks above that, so about 1 A for 10 modules. Our pick is the DFRobot DFR0831 (7–24 V in, 5 V 4 A out). It goes on the last module of the chain: its input comes from that module's free 12VOUT, and its output goes into the free I2C-B (+ to 5V, − to GND). Step 7 of the [soldering guide](guides/soldering.pdf) shows how to make the two leads and test them.
 - **Never put 12 V on the 5 V line.** The D1 Mini's 5V pin can't take it.
 - **Switch the 12 V on before you plug USB into any D1 Mini, or unplug the converter first.** dmlambo writes in [issue #1](https://github.com/dmlambo/SplitFlap/issues/1) that the converter "lets current pass through to the in side of the board when powering from USB, which tries to power the motors", and suggests a diode on the master's 5 V input. We follow this rule instead, because a diode would lower the 5 V line by about 0.4 V. That the rule avoids the problem is our reading: with the 12 V on, the converter's input already sits at 12 V. Firmware updates don't need USB (see the FAQ).
 - **Testing a single module without the converter:** plug USB into its D1 Mini, which also powers the 5 V line, and connect 12 V to 12VIN for the motor.

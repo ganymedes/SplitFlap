@@ -144,7 +144,7 @@ Order these separately. The README's *Wiring* section shows where they connect.
 - 28BYJ-48 **12 V** motor
 - KY-003 hall sensor
 - 2 × 1 mm magnet
-- 12 V power supply, 12 V → 5 V step-down converter, DC socket and switch
+- 12 V power supply, 12 V → 5 V step-down converter (one per display; our pick: DFRobot DFR0831), DC socket and switch
 - JST-XH cable housings and crimp contacts
 
 LCSC sells the cable housings: XHP-2, XHP-3, XHP-4, and SXH-001T-P0.6 contacts.
