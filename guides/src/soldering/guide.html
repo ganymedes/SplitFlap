@@ -258,12 +258,12 @@
     <p>Plug the D1 Mini back in: antenna toward the 9-pin header, USB end toward <i>USB MICRO</i> (Figures 2 and 3).</p>
     <p>Check the TX…5V row on top of the D1 Mini: the 5th hole from TX (D3) has no pin and no solder, as in Figure 7.</p>
     <p>The board is ready. Flash the firmware over USB with <code>pio run -t upload</code> and <code>pio run -t uploadfs</code>.</p>
-    <div class="note">Once the board is wired into a display with the 5 V converter, switch the 12 V on <b>before</b> you plug USB into any D1 Mini, or unplug the converter first. The board's designer reports that when the board runs from USB, current flows back through the converter into the 12 V side and tries to run the motors. See <i>Power</i> in the README.</div>
+    <div class="note">Once the board is wired into a display with the 5 V converter, plug in the 12 V supply <b>before</b> you plug USB into any D1 Mini, or unplug the converter first. The board's designer reports that when the board runs from USB, current flows back through the converter into the 12 V side and tries to run the motors. See <i>Power</i> in the README.</div>
   </div>
 </div>
 
 <h2 class="pb"><span class="n">7</span>Connect the 5 V converter (once per display)</h2>
-<p>The board has no 5 V regulator. The D1 Mini and the hall sensor get their 5 V through the I2C cables, and one 12 V → 5 V converter feeds the whole display. It goes on the <b>last module</b> of the chain, where 12VOUT and I2C-B are free.</p>
+<p>The board has no 5 V regulator. The D1 Mini and the hall sensor get their 5 V through the I2C cables, and one 12 V → 5 V converter feeds the whole display. It goes on the <b>last module</b> of the chain, where 12VOUT and I2C-B are free. A power switch is optional; this step turns the 12 V on and off by plugging the supply in and out.</p>
 
 <figure>
   <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, Helvetica, Arial, sans-serif">
@@ -406,17 +406,17 @@
 <h3>7.4 Test before the 5 V reaches the boards</h3>
 <ol>
   <li>Plug only the <b>2-pin</b> lead into 12VOUT of the last module. Leave the 4-pin lead unplugged.</li>
-  <li>Switch the 12 V on. Measure at the loose 4-pin plug, red probe on the 5V wire and black on the GND wire: you should read about <b>5 V</b>.</li>
-  <li>If you read 12 V or −5 V, switch off and check the soldering against the table.</li>
+  <li>Plug in the 12 V supply. Measure at the loose 4-pin plug, red probe on the 5V wire and black on the GND wire: you should read about <b>5 V</b>.</li>
+  <li>If you read 12 V or −5 V, unplug the supply and check the soldering against the table.</li>
 </ol>
 
 <h3>7.5 Connect and check</h3>
 <ol>
-  <li>Switch the 12 V off. Plug the 4-pin lead into <b>I2C-B</b> of the last module.</li>
-  <li>Switch the 12 V on. Measure between 5V and GND on the free <b>I2C-A of module 1</b>, at the other end of the chain. It should be close to 5 V. Then the 5 V reaches every module.</li>
-  <li>Switch off. Slide the wide heat-shrink over the converter, or fix it in a small case, so no pad can touch another board or metal.</li>
+  <li>Unplug the 12 V supply. Plug the 4-pin lead into <b>I2C-B</b> of the last module.</li>
+  <li>Plug in the 12 V supply. Measure between 5V and GND on the free <b>I2C-A of module 1</b>, at the other end of the chain. It should be close to 5 V. Then the 5 V reaches every module.</li>
+  <li>Unplug the supply. Slide the wide heat-shrink over the converter, or fix it in a small case, so no pad can touch another board or metal.</li>
 </ol>
-<div class="note">With the converter connected, switch the 12 V on <b>before</b> you plug USB into any D1 Mini (see step 6).</div>
+<div class="note">With the converter connected, plug in the 12 V supply <b>before</b> you plug USB into any D1 Mini (see step 6).</div>
 
 <h2 class="pb">Why these fixes are needed</h2>
 <p>The PCB is built exactly as designed, and the design is missing four things. The README's <i>Building Notes</i> lists them, but they were never added to the schematic or the PCB.</p>
