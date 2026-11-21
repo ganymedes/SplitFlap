@@ -33,22 +33,24 @@ Step-by-step guides with photos are in [guides/](guides/). Their sources (HTML, 
 
 | Guide | Covers |
 |---|---|
-| [Soldering](guides/soldering.pdf) | Fitting the D1 Mini to the module PCB on plug-in headers, the fixes from *Building Notes* below, and multimeter checks |
+| [Soldering](guides/soldering.pdf) | Fitting the D1 Mini to the module PCB on plug-in headers, the first three fixes from *Building Notes* below, and multimeter checks |
 
 ## Building Notes
-The PCB is missing three fixes. They have not been added to the schematic or the PCB, so you add them by hand. The [soldering guide](guides/soldering.pdf) shows where.
+The PCB is missing four fixes. They have not been added to the schematic or the PCB, so you add them by hand. The [soldering guide](guides/soldering.pdf) shows where to add the first three.
 
 | Fix | Boards | Parts |
 |---|---|---|
 | Reroute the hall sensor from D3 to D0 | Every module | Remove the D3 pin from the D1 Mini's male header before soldering it, add a wire from D3 to D0 |
 | Pullup on D0 | Every module | 1 × 10 kΩ from D0 to 3V3 |
 | I2C pullups | Master only (one per display) | 2 × 4.7 kΩ, from SDA (D2) and from SCL (D1) to 3V3 |
+| Capacitor on the motor driver | Every module | 1 × 10 nF ceramic, 50 V, under the board between pins 8 (GND) and 9 (COM) of the ULN2003 (U4). The two pins sit opposite each other at the end away from the chip's notch. |
 
 Why each fix is needed:
 
 - **Hall sensor on D0, not D3.** D3 is GPIO0, which the ESP8266 reads at power-on to decide how to boot. If it is low, the chip waits for new firmware instead of starting. The hall sensor pulls its line low whenever the magnet is in front of it, so a module whose drum stopped there would not start. D0 plays no part in booting, and the firmware reads the sensor on D0 (`HALL` in [include/Config.h](include/Config.h)).
 - **10 kΩ pullup on D0.** The diode on the PCB keeps the sensor's 5 V away from the 3.3 V input, so the sensor can only pull the line low. Without a magnet nothing pulls the line high, and the input floats and gives random readings. Most ESP8266 pins have a built-in pullup, but D0 does not.
 - **4.7 kΩ pullups on SDA and SCL.** All modules share one I2C bus. Each module can only pull the lines low, and the pullups pull them back high. One pair is enough for the whole display. The other modules switch their built-in pullups off in slave mode ([src/main.cpp](src/main.cpp)), so the pullups sit on the master. The built-in ones are too weak for a bus that runs through ten modules and their cables.
+- **10 nF on the ULN2003.** Each time the driver switches a motor coil off, the coil sends a voltage spike back into the 12 V line through the ULN2003's COM pin. The board has no capacitor on the 12 V line, and this one damps the spikes right at the chip. dmlambo, who designed this board, lists it in [issue #1](https://github.com/dmlambo/SplitFlap/issues/1) of the original repo.
 
 ## Wiring
 Each module PCB has six JST-XH sockets. The motor, hall sensor, power supply, converter and connector parts are listed in [pcb/ORDERING.md](pcb/ORDERING.md#parts-jlcpcb-doesnt-assemble).
@@ -65,6 +67,7 @@ The PCB has no voltage regulator. The 12 V only reaches the motor and the ULN200
 
 - **One 12 V → 5 V step-down converter per display.** Use one with a fixed 5 V output, rated 2.5 A or more, which is plenty for 10 modules. Connect its input to the 12 V supply. Connect its output to a free I2C socket, + to pin 2 and GND to pin 1.
 - **Never put 12 V on the 5 V line.** The D1 Mini's 5V pin can't take it.
+- **Switch the 12 V on before you plug USB into any D1 Mini.** With the 12 V off, the USB power flows backwards through the converter into the 12 V line and tries to run the motors, which overloads the USB port. Firmware updates don't need USB (see the FAQ).
 - **Testing a single module without the converter:** plug USB into its D1 Mini, which also powers the 5 V line, and connect 12 V to 12VIN for the motor.
 
 ## FAQ

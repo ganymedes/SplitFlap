@@ -131,7 +131,7 @@ If JLCPCB finds a problem at any step, they email you and hold the order until y
 Follow the [soldering guide](../guides/soldering.pdf). In short:
 
 - **Solder the D1 Mini (U1)** onto each board yourself. Use the ESP8266EX version without the metal shield (see the README).
-- **Every board:** reroute the hall sensor from D3 to D0, and add a 10 kΩ pullup on D0.
+- **Every board:** reroute the hall sensor from D3 to D0, add a 10 kΩ pullup on D0, and add a 10 nF capacitor between pins 8 and 9 of the ULN2003 (see the README's *Building Notes*).
 - **Master board only:**
   - 2 × 4.7 kΩ pullups on SDA/SCL (D2/D1)
   - the reset button
