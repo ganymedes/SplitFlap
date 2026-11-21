@@ -263,10 +263,10 @@
 </div>
 
 <h2 class="pb"><span class="n">7</span>Connect the 5 V converter (once per display)</h2>
-<p>The board has no 5 V regulator. The D1 Mini and the hall sensor get their 5 V through the I2C cables, and one 12 V → 5 V converter feeds the whole display. It goes on the <b>last module</b> of the chain, where 12VOUT and I2C-B are free. A power switch is optional; this step turns the 12 V on and off by plugging the supply in and out.</p>
+<p>The board has no 5 V regulator. The D1 Mini and the hall sensor get their 5 V through the I2C cables, and one 12 V → 5 V converter feeds the whole display. It sits next to <b>module 1</b> and the DC socket: its 12 V comes straight from the DC socket, and its 5 V goes into module 1's free <b>I2C-A</b>. A power switch is optional; this step turns the 12 V on and off by plugging the supply in and out.</p>
 
 <figure>
-  <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, Helvetica, Arial, sans-serif">
+  <svg viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, Helvetica, Arial, sans-serif">
     <g fill="#f1f3f5" stroke="#adb5bd" stroke-width="2">
       <rect x="170" y="40" width="160" height="190" rx="12"/><rect x="390" y="40" width="160" height="190" rx="12"/><rect x="620" y="40" width="160" height="190" rx="12"/>
     </g>
@@ -283,26 +283,25 @@
       <text x="431" y="115">12VIN</text><text x="431" y="195">I2C-A</text><text x="509" y="115">12VOUT</text><text x="509" y="195">I2C-B</text>
       <text x="661" y="115">12VIN</text><text x="661" y="195">I2C-A</text><text x="739" y="115">12VOUT</text><text x="739" y="195">I2C-B</text>
     </g>
-    <rect x="10" y="85" width="110" height="50" rx="8" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
-    <text x="65" y="106" font-size="15" font-weight="700" fill="#e8590c" text-anchor="middle">12 V</text>
-    <text x="65" y="125" font-size="15" font-weight="700" fill="#e8590c" text-anchor="middle">supply</text>
-    <rect x="830" y="85" width="150" height="120" rx="8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="2"/>
-    <text x="905" y="150" font-size="15" font-weight="700" fill="#1c7ed6" text-anchor="middle">5 V converter</text>
-    <text x="840" y="115" font-size="13" font-weight="700" fill="#495057">IN</text>
-    <text x="840" y="195" font-size="13" font-weight="700" fill="#495057">OUT</text>
+    <rect x="10" y="80" width="120" height="60" rx="8" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+    <text x="70" y="104" font-size="15" font-weight="700" fill="#e8590c" text-anchor="middle">12 V supply</text>
+    <text x="70" y="124" font-size="13" font-weight="600" fill="#e8590c" text-anchor="middle">DC socket</text>
+    <rect x="10" y="165" width="120" height="50" rx="8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="2"/>
+    <text x="70" y="186" font-size="15" font-weight="700" fill="#1c7ed6" text-anchor="middle">5 V</text>
+    <text x="70" y="204" font-size="15" font-weight="700" fill="#1c7ed6" text-anchor="middle">converter</text>
     <g stroke="#e8590c" stroke-width="6" stroke-linecap="round">
-      <line x1="120" y1="110" x2="178" y2="110"/><line x1="322" y1="110" x2="398" y2="110"/><line x1="542" y1="110" x2="566" y2="110"/><line x1="596" y1="110" x2="628" y2="110"/><line x1="772" y1="110" x2="830" y2="110"/>
+      <line x1="130" y1="110" x2="178" y2="110"/><line x1="70" y1="140" x2="70" y2="165"/><line x1="322" y1="110" x2="398" y2="110"/><line x1="542" y1="110" x2="566" y2="110"/><line x1="596" y1="110" x2="628" y2="110"/>
     </g>
     <g stroke="#1c7ed6" stroke-width="6" stroke-linecap="round">
       <line x1="322" y1="190" x2="398" y2="190"/><line x1="542" y1="190" x2="566" y2="190"/><line x1="596" y1="190" x2="628" y2="190"/>
     </g>
-    <line x1="772" y1="190" x2="830" y2="190" stroke="#e03131" stroke-width="6" stroke-linecap="round"/>
+    <line x1="130" y1="190" x2="178" y2="190" stroke="#e03131" stroke-width="6" stroke-linecap="round"/>
     <g font-size="22" font-weight="700" fill="#868e96" text-anchor="middle"><text x="581" y="116">…</text><text x="581" y="196">…</text></g>
-    <text x="165" y="195" font-size="13" fill="#868e96" text-anchor="end">free</text>
+    <g font-size="13" fill="#868e96"><text x="786" y="115">free</text><text x="786" y="195">free</text></g>
     <g font-size="13" font-weight="600">
-      <rect x="20" y="262" width="16" height="10" fill="#e8590c"/><text x="44" y="272" fill="#495057">12 V: 2-pin cables</text>
-      <rect x="240" y="262" width="16" height="10" fill="#1c7ed6"/><text x="264" y="272" fill="#495057">I2C and 5 V: 4-pin cables, label to label</text>
-      <rect x="600" y="262" width="16" height="10" fill="#e03131"/><text x="624" y="272" fill="#495057">converter output: 5V and GND only</text>
+      <rect x="10" y="262" width="16" height="10" fill="#e8590c"/><text x="34" y="272" fill="#495057">12 V: 2-pin cables and DC socket wires</text>
+      <rect x="300" y="262" width="16" height="10" fill="#1c7ed6"/><text x="324" y="272" fill="#495057">I2C and 5 V: 4-pin cables, label to label</text>
+      <rect x="590" y="262" width="16" height="10" fill="#e03131"/><text x="614" y="272" fill="#495057">converter output: 5V and GND</text>
     </g>
   </svg>
   <figcaption><b>Figure 8.</b> How one display is wired (schematic, not the real socket positions). Each module's 12VOUT goes to the next module's 12VIN, and each I2C-B to the next I2C-A. The master, with the 4.7 kΩ resistors, can be any module.</figcaption>
@@ -313,60 +312,67 @@
     <h3>Parts per display</h3>
     <ul>
       <li>1 × 12 V → 5 V converter, DFRobot DFR0831 (7–24 V in, 5 V 4 A out)</li>
+      <li>1 × DC panel socket that fits your supply's plug</li>
       <li>1 spare 2-pin and 1 spare 4-pin JST-XH cable</li>
-      <li>Heat-shrink: 2 small pieces, and 1 piece about 25 mm wide for the converter</li>
+      <li>Heat-shrink: small pieces, and 1 piece about 25 mm wide for the converter</li>
     </ul>
   </div>
   <div class="box">
     <h3>Before you start</h3>
     <ul>
-      <li>The 12 V supply is wired to module 1's 12VIN, and all 12 V and I2C cables are in place.</li>
+      <li>All 12 V and I2C cables between the modules are in place (Figure 8).</li>
       <li>Every module passed the checks in step 5.</li>
+      <li>The DC socket is not wired yet.</li>
     </ul>
   </div>
 </div>
 
-<h3>7.1 Mark the wires</h3>
-<p>Plug a 2-pin cable into <b>12VOUT</b> of the last module, and mark the wire at the <b>+</b> pin with a red pen or tape (Figure 9). Plug a 4-pin cable into <b>I2C-B</b>, and mark the wires at <b>5V</b> (red) and <b>GND</b> (black) (Figure 10). Unplug both. Marking on the board is safer than trusting the wire colours.</p>
+<h3>7.1 Mark + on the DC socket and the wires</h3>
+<ol>
+  <li>Plug the supply into the bare DC socket and measure its terminals. Mark the <b>+</b> terminal with a red pen, then unplug. If the socket has a third terminal, it stays empty.</li>
+  <li>Plug a 2-pin cable into <b>12VIN of module 1</b>, and mark the wire at the <b>+</b> pin red (Figure 9).</li>
+  <li>Plug a 4-pin cable into <b>I2C-A of module 1</b>, and mark the wires at <b>5V</b> (red) and <b>GND</b> (black) (Figure 10). Unplug both. Marking on the board is safer than trusting the wire colours.</li>
+</ol>
 
 <div class="pair" style="grid-template-columns: 1fr 1fr; align-items:start">
   <figure style="margin-top:0">
     <svg viewBox="0 0 1400 913" xmlns="http://www.w3.org/2000/svg">
       <image href="pcb-12v.jpg" x="0" y="0" width="1400" height="913"/>
-      <circle cx="392" cy="678" r="24" fill="none" stroke="#e03131" stroke-width="8"/>
-      <circle cx="300" cy="676" r="24" fill="none" stroke="#212529" stroke-width="8"/>
-      <line x1="470" y1="808" x2="405" y2="700" stroke="#e03131" stroke-width="7"/>
-      <line x1="200" y1="808" x2="290" y2="700" stroke="#212529" stroke-width="7"/>
-      <g class="tag"><rect x="410" y="808" width="420" height="84" rx="14" stroke="#e03131" style="stroke-width:6"/><text x="620" y="851" fill="#e03131" style="font-size:48px">+12 V → IN+</text></g>
-      <g class="tag"><rect x="10" y="808" width="370" height="84" rx="14" stroke="#212529" style="stroke-width:6"/><text x="195" y="851" fill="#212529" style="font-size:48px">GND → IN−</text></g>
+      <circle cx="990" cy="692" r="24" fill="none" stroke="#e03131" stroke-width="8"/>
+      <circle cx="878" cy="690" r="24" fill="none" stroke="#212529" stroke-width="8"/>
+      <line x1="1060" y1="808" x2="1002" y2="714" stroke="#e03131" stroke-width="7"/>
+      <line x1="640" y1="808" x2="864" y2="712" stroke="#212529" stroke-width="7"/>
+      <g class="tag"><rect x="890" y="808" width="500" height="84" rx="14" stroke="#e03131" style="stroke-width:6"/><text x="1140" y="851" fill="#e03131" style="font-size:44px">+ → DC socket +</text></g>
+      <g class="tag"><rect x="290" y="808" width="560" height="84" rx="14" stroke="#212529" style="stroke-width:6"/><text x="570" y="851" fill="#212529" style="font-size:44px">GND → DC socket −</text></g>
     </svg>
-    <figcaption><b>Figure 9.</b> 12VOUT of the last module. The pin next to the <b>+</b> is +12 V.</figcaption>
+    <figcaption><b>Figure 9.</b> 12VIN of module 1. The pin next to the <b>+</b> is +12 V.</figcaption>
   </figure>
   <figure style="margin-top:0">
-    <svg viewBox="0 0 1400 1100" xmlns="http://www.w3.org/2000/svg">
-      <image href="pcb-i2c.jpg" x="0" y="0" width="1400" height="1100"/>
-      <circle cx="937" cy="405" r="24" fill="none" stroke="#e03131" stroke-width="8"/>
-      <circle cx="1072" cy="442" r="24" fill="none" stroke="#212529" stroke-width="8"/>
-      <circle cx="815" cy="360" r="22" fill="none" stroke="#868e96" stroke-width="7"/>
-      <circle cx="705" cy="325" r="22" fill="none" stroke="#868e96" stroke-width="7"/>
-      <line x1="390" y1="790" x2="925" y2="425" stroke="#e03131" stroke-width="7"/>
-      <line x1="440" y1="895" x2="1060" y2="462" stroke="#212529" stroke-width="7"/>
-      <g class="tag"><rect x="20" y="748" width="370" height="84" rx="14" stroke="#e03131" style="stroke-width:6"/><text x="205" y="791" fill="#e03131" style="font-size:48px">5V → OUT+</text></g>
-      <g class="tag"><rect x="20" y="853" width="420" height="84" rx="14" stroke="#212529" style="stroke-width:6"/><text x="230" y="896" fill="#212529" style="font-size:48px">GND → OUT−</text></g>
-      <g class="tag"><rect x="20" y="958" width="480" height="84" rx="14" stroke="#868e96" style="stroke-width:6"/><text x="260" y="1001" fill="#868e96" style="font-size:48px">SDA, SCL: not used</text></g>
+    <svg viewBox="0 0 1400 1050" xmlns="http://www.w3.org/2000/svg">
+      <image href="pcb-i2c-a.jpg" x="0" y="0" width="1400" height="1050"/>
+      <circle cx="410" cy="255" r="24" fill="none" stroke="#e03131" stroke-width="8"/>
+      <circle cx="272" cy="302" r="24" fill="none" stroke="#212529" stroke-width="8"/>
+      <circle cx="548" cy="208" r="22" fill="none" stroke="#868e96" stroke-width="7"/>
+      <circle cx="683" cy="165" r="22" fill="none" stroke="#868e96" stroke-width="7"/>
+      <line x1="620" y1="942" x2="418" y2="278" stroke="#e03131" stroke-width="7"/>
+      <line x1="200" y1="942" x2="268" y2="326" stroke="#212529" stroke-width="7"/>
+      <g class="tag"><rect x="450" y="942" width="360" height="84" rx="14" stroke="#e03131" style="stroke-width:6"/><text x="630" y="985" fill="#e03131" style="font-size:44px">5V → OUT+</text></g>
+      <g class="tag"><rect x="15" y="942" width="410" height="84" rx="14" stroke="#212529" style="stroke-width:6"/><text x="220" y="985" fill="#212529" style="font-size:44px">GND → OUT−</text></g>
+      <g class="tag"><rect x="835" y="942" width="550" height="84" rx="14" stroke="#868e96" style="stroke-width:6"/><text x="1110" y="985" fill="#868e96" style="font-size:44px">SDA, SCL: not used</text></g>
     </svg>
-    <figcaption><b>Figure 10.</b> I2C-B of the last module (right). Go by the printed labels: SCL, SDA, 5V, GND.</figcaption>
+    <figcaption><b>Figure 10.</b> I2C-A of module 1 (left). Go by the printed labels: GND, 5V, SDA, SCL.</figcaption>
   </figure>
 </div>
 
-<h3 class="pb">7.2 Make the two leads</h3>
+<h3>7.2 Make the leads</h3>
 <ol>
-  <li>Cut both cables about 10 cm from one plug. Keep the plug ends.</li>
-  <li>On the 4-pin lead, cut the two unmarked wires (SDA, SCL) to about 2 cm and cover each end with heat-shrink.</li>
-  <li>Strip 3 mm from the marked wires, twist the strands and tin them.</li>
+  <li><b>12 V lead to module 1:</b> cut the 2-pin cable so the plug end reaches from the DC socket to 12VIN of module 1.</li>
+  <li><b>Converter input:</b> take the other half of the 2-pin cable and cut off its plug. These two wires go from the DC socket to the converter's IN.</li>
+  <li><b>Converter output:</b> cut the 4-pin cable so the plug end reaches from the converter to I2C-A of module 1. Cut its two unmarked wires (SDA, SCL) to about 2 cm and cover each end with heat-shrink.</li>
+  <li>Strip 3 mm from every wire end you will solder, twist the strands and tin them.</li>
 </ol>
 
-<h3>7.3 Solder the leads to the converter</h3>
+<h3>7.3 Solder the converter</h3>
 <div class="pair" style="grid-template-columns: 1.15fr 1fr; align-items:start">
   <figure style="margin-top:0">
     <svg viewBox="-10 -110 880 900" xmlns="http://www.w3.org/2000/svg">
@@ -381,39 +387,70 @@
       <circle cx="270" cy="605" r="22" fill="none" stroke="#e03131" stroke-width="6"/>
       <circle cx="430" cy="182" r="22" fill="none" stroke="#212529" stroke-width="6"/>
       <circle cx="605" cy="350" r="22" fill="none" stroke="#e03131" stroke-width="6"/>
-      <g class="tag"><rect x="-5" y="-100" width="330" height="58" rx="10" stroke="#212529"/><text x="160" y="-71" fill="#212529" style="font-size:30px">IN− ← 12VOUT GND</text></g>
-      <g class="tag"><rect x="360" y="-100" width="350" height="58" rx="10" stroke="#212529"/><text x="535" y="-71" fill="#212529" style="font-size:30px">OUT− → I2C-B GND</text></g>
-      <g class="tag"><rect x="60" y="715" width="330" height="58" rx="10" stroke="#e03131"/><text x="225" y="744" fill="#e03131" style="font-size:30px">IN+ ← 12VOUT +</text></g>
-      <g class="tag"><rect x="430" y="715" width="350" height="58" rx="10" stroke="#e03131"/><text x="605" y="744" fill="#e03131" style="font-size:30px">OUT+ → I2C-B 5V</text></g>
+      <g class="tag"><rect x="-5" y="-100" width="330" height="58" rx="10" stroke="#212529"/><text x="160" y="-71" fill="#212529" style="font-size:30px">IN− ← DC socket −</text></g>
+      <g class="tag"><rect x="360" y="-100" width="350" height="58" rx="10" stroke="#212529"/><text x="535" y="-71" fill="#212529" style="font-size:30px">OUT− → I2C-A GND</text></g>
+      <g class="tag"><rect x="60" y="715" width="330" height="58" rx="10" stroke="#e03131"/><text x="225" y="744" fill="#e03131" style="font-size:30px">IN+ ← DC socket +</text></g>
+      <g class="tag"><rect x="430" y="715" width="350" height="58" rx="10" stroke="#e03131"/><text x="605" y="744" fill="#e03131" style="font-size:30px">OUT+ → I2C-A 5V</text></g>
     </svg>
     <figcaption><b>Figure 11.</b> The DFR0831. The IN pads are at the end away from the pin block, the OUT pads next to it. Product photo: Bastelgarage / DFRobot.</figcaption>
   </figure>
   <div>
     <table>
-      <tr><th>Lead</th><th>Wire</th><th>Pad</th></tr>
-      <tr><td>2-pin</td><td>marked <b>+</b> (red)</td><td><b>IN+</b></td></tr>
-      <tr><td>2-pin</td><td>other</td><td><b>IN−</b></td></tr>
-      <tr><td>4-pin</td><td><b>5V</b> (red)</td><td><b>OUT+</b></td></tr>
-      <tr><td>4-pin</td><td><b>GND</b> (black)</td><td><b>OUT−</b></td></tr>
+      <tr><th>Wire</th><th>Pad</th></tr>
+      <tr><td>Converter input, one wire</td><td><b>IN+</b></td></tr>
+      <tr><td>Converter input, other wire</td><td><b>IN−</b></td></tr>
+      <tr><td>4-pin lead, <b>5V</b> (red)</td><td><b>OUT+</b></td></tr>
+      <tr><td>4-pin lead, <b>GND</b> (black)</td><td><b>OUT−</b></td></tr>
     </table>
     <ol>
       <li>Before soldering, find the printed <b>+</b> next to IN+ and next to OUT+ on your converter.</li>
       <li>Tin the four pads, then solder each wire flat onto its pad. Leave the pin block (G, 5V, S) empty.</li>
+      <li>Mark the wire on IN+ red at its free end.</li>
     </ol>
   </div>
 </div>
 
-<h3>7.4 Test before the 5 V reaches the boards</h3>
+<h3>7.4 Solder the DC socket</h3>
+<figure style="width:80%; margin-left:auto; margin-right:auto">
+  <svg viewBox="0 0 720 230" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, Helvetica, Arial, sans-serif">
+    <rect x="20" y="40" width="170" height="150" rx="14" fill="#f1f3f5" stroke="#adb5bd" stroke-width="2"/>
+    <text x="105" y="30" font-size="16" font-weight="700" fill="#1d1f24" text-anchor="middle">DC socket (back)</text>
+    <circle cx="105" cy="85" r="18" fill="#fff" stroke="#e03131" stroke-width="5"/><text x="105" y="91" font-size="20" font-weight="700" fill="#e03131" text-anchor="middle">+</text>
+    <circle cx="105" cy="150" r="18" fill="#fff" stroke="#212529" stroke-width="5"/><text x="105" y="156" font-size="20" font-weight="700" fill="#212529" text-anchor="middle">−</text>
+    <g fill="none" stroke-width="5" stroke-linecap="round">
+      <path d="M123 85 C 220 85, 260 55, 380 55" stroke="#e03131"/>
+      <path d="M123 85 C 220 85, 260 115, 380 115" stroke="#e03131"/>
+      <path d="M123 150 C 230 150, 250 75, 380 75" stroke="#212529"/>
+      <path d="M123 150 C 230 150, 250 135, 380 135" stroke="#212529"/>
+    </g>
+    <rect x="380" y="40" width="320" height="50" rx="8" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+    <text x="540" y="62" font-size="15" font-weight="700" fill="#e8590c" text-anchor="middle">12 V lead → 12VIN of module 1</text>
+    <text x="540" y="81" font-size="13" fill="#495057" text-anchor="middle">red-marked wire on +</text>
+    <rect x="380" y="100" width="320" height="50" rx="8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="2"/>
+    <text x="540" y="122" font-size="15" font-weight="700" fill="#1c7ed6" text-anchor="middle">Converter input → IN+ / IN−</text>
+    <text x="540" y="141" font-size="13" fill="#495057" text-anchor="middle">IN+ wire on +</text>
+    <text x="360" y="210" font-size="14" fill="#495057" text-anchor="middle">Two wires on each terminal. A third terminal, if there is one, stays empty.</text>
+  </svg>
+  <figcaption><b>Figure 12.</b> Both leads start at the DC socket: the red-marked wires on <b>+</b>, the others on <b>−</b>.</figcaption>
+</figure>
 <ol>
-  <li>Plug only the <b>2-pin</b> lead into 12VOUT of the last module. Leave the 4-pin lead unplugged.</li>
-  <li>Plug in the 12 V supply. Measure at the loose 4-pin plug, red probe on the 5V wire and black on the GND wire: you should read about <b>5 V</b>.</li>
-  <li>If you read 12 V or −5 V, unplug the supply and check the soldering against the table.</li>
+  <li>Slide a piece of heat-shrink over each pair of wires first.</li>
+  <li>Twist the two red-marked wires together and solder them to the <b>+</b> terminal. Solder the other two wires to the <b>−</b> terminal.</li>
+  <li>Slide the heat-shrink over each terminal and shrink it.</li>
 </ol>
 
-<h3>7.5 Connect and check</h3>
+<h3>7.5 Test before anything is plugged into module 1</h3>
 <ol>
-  <li>Unplug the 12 V supply. Plug the 4-pin lead into <b>I2C-B</b> of the last module.</li>
-  <li>Plug in the 12 V supply. Measure between 5V and GND on the free <b>I2C-A of module 1</b>, at the other end of the chain. It should be close to 5 V. Then the 5 V reaches every module.</li>
+  <li>Leave both plugs loose. Plug in the 12 V supply.</li>
+  <li>At the 2-pin plug, red probe on the red-marked wire: about <b>+12 V</b>. If you read −12 V, + and − are swapped at the DC socket.</li>
+  <li>At the 4-pin plug, red probe on the 5V wire, black on GND: about <b>+5 V</b>. If you read 12 V or −5 V, check the converter against the table in 7.3.</li>
+  <li>Unplug the supply.</li>
+</ol>
+
+<h3>7.6 Connect and check</h3>
+<ol>
+  <li>Plug the 2-pin lead into <b>12VIN</b> and the 4-pin lead into <b>I2C-A</b> of module 1.</li>
+  <li>Plug in the 12 V supply. Measure between 5V and GND on the free <b>I2C-B of module 10</b>, at the other end of the chain. It should be close to 5 V. Then the 5 V reaches every module.</li>
   <li>Unplug the supply. Slide the wide heat-shrink over the converter, or fix it in a small case, so no pad can touch another board or metal.</li>
 </ol>
 <div class="note">With the converter connected, plug in the 12 V supply <b>before</b> you plug USB into any D1 Mini (see step 6).</div>
