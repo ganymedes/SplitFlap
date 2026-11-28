@@ -311,10 +311,10 @@
   <div class="box">
     <h3>Parts per display</h3>
     <ul>
-      <li>1 × 12 V → 5 V converter, DFRobot DFR0831 (7–24 V in, 5 V 4 A out)</li>
+      <li>1 × 12 V → 5 V converter, Waveshare DC5-36-TO-DC3V3-5 (SKU 29035, the version without header and terminal; 6–36 V in, 5 V up to 4 A out)</li>
       <li>1 × DC panel socket that fits your supply's plug</li>
       <li>1 spare 2-pin and 1 spare 4-pin JST-XH cable</li>
-      <li>Heat-shrink: small pieces, and 1 piece about 25 mm wide for the converter</li>
+      <li>Heat-shrink: small pieces, and 1 piece about 20 mm across and 4 cm long for the converter</li>
     </ul>
   </div>
   <div class="box">
@@ -356,8 +356,8 @@
       <circle cx="683" cy="165" r="22" fill="none" stroke="#868e96" stroke-width="7"/>
       <line x1="620" y1="942" x2="418" y2="278" stroke="#e03131" stroke-width="7"/>
       <line x1="200" y1="942" x2="268" y2="326" stroke="#212529" stroke-width="7"/>
-      <g class="tag"><rect x="450" y="942" width="360" height="84" rx="14" stroke="#e03131" style="stroke-width:6"/><text x="630" y="985" fill="#e03131" style="font-size:44px">5V → OUT+</text></g>
-      <g class="tag"><rect x="15" y="942" width="410" height="84" rx="14" stroke="#212529" style="stroke-width:6"/><text x="220" y="985" fill="#212529" style="font-size:44px">GND → OUT−</text></g>
+      <g class="tag"><rect x="450" y="942" width="360" height="84" rx="14" stroke="#e03131" style="stroke-width:6"/><text x="630" y="985" fill="#e03131" style="font-size:44px">5V → VOUT</text></g>
+      <g class="tag"><rect x="5" y="942" width="435" height="84" rx="14" stroke="#212529" style="stroke-width:6"/><text x="222" y="985" fill="#212529" style="font-size:40px">GND → output GND</text></g>
       <g class="tag"><rect x="835" y="942" width="550" height="84" rx="14" stroke="#868e96" style="stroke-width:6"/><text x="1110" y="985" fill="#868e96" style="font-size:44px">SDA, SCL: not used</text></g>
     </svg>
     <figcaption><b>Figure 10.</b> I2C-A of module 1 (left). Go by the printed labels: GND, 5V, SDA, SCL.</figcaption>
@@ -367,47 +367,60 @@
 <h3>7.2 Make the leads</h3>
 <ol>
   <li><b>12 V lead to module 1:</b> cut the 2-pin cable so the plug end reaches from the DC socket to 12VIN of module 1.</li>
-  <li><b>Converter input:</b> take the other half of the 2-pin cable and cut off its plug. These two wires go from the DC socket to the converter's IN.</li>
+  <li><b>Converter input:</b> take the other half of the 2-pin cable and cut off its plug. These two wires go from the DC socket to the converter's input, VIN and GND.</li>
   <li><b>Converter output:</b> cut the 4-pin cable so the plug end reaches from the converter to I2C-A of module 1. Cut its two unmarked wires (SDA, SCL) to about 2 cm and cover each end with heat-shrink.</li>
   <li>Strip 3 mm from every wire end you will solder, twist the strands and tin them.</li>
 </ol>
 
 <h3>7.3 Solder the converter</h3>
-<div class="pair" style="grid-template-columns: 1.15fr 1fr; align-items:start">
+<p>The converter has holes, not pads: 2 × VIN and 2 × GND at the input end, 3 × VOUT and 3 × GND at the output end. The labels are printed only on the underside, the side without components.</p>
+<div class="pair" style="grid-template-columns: 1.25fr 1fr; align-items:start">
   <figure style="margin-top:0">
-    <svg viewBox="-10 -110 880 900" xmlns="http://www.w3.org/2000/svg">
-      <image href="converter.jpg" x="0" y="0" width="860" height="700"/>
-      <polygon points="477,149 616,47 798,211 661,313" fill="#868e96" fill-opacity=".6"/>
-      <text x="638" y="180" transform="rotate(42 638 180)" class="on-black" style="font-size:34px">not used</text>
-      <line x1="160" y1="-42" x2="92" y2="408" stroke="#212529" stroke-width="5"/>
-      <line x1="535" y1="-42" x2="433" y2="160" stroke="#212529" stroke-width="5"/>
-      <line x1="225" y1="715" x2="266" y2="627" stroke="#e03131" stroke-width="5"/>
-      <line x1="605" y1="715" x2="605" y2="372" stroke="#e03131" stroke-width="5"/>
-      <circle cx="88" cy="430" r="22" fill="none" stroke="#212529" stroke-width="6"/>
-      <circle cx="270" cy="605" r="22" fill="none" stroke="#e03131" stroke-width="6"/>
-      <circle cx="430" cy="182" r="22" fill="none" stroke="#212529" stroke-width="6"/>
-      <circle cx="605" cy="350" r="22" fill="none" stroke="#e03131" stroke-width="6"/>
-      <g class="tag"><rect x="-5" y="-100" width="330" height="58" rx="10" stroke="#212529"/><text x="160" y="-71" fill="#212529" style="font-size:30px">IN− ← DC socket −</text></g>
-      <g class="tag"><rect x="360" y="-100" width="350" height="58" rx="10" stroke="#212529"/><text x="535" y="-71" fill="#212529" style="font-size:30px">OUT− → I2C-A GND</text></g>
-      <g class="tag"><rect x="60" y="715" width="330" height="58" rx="10" stroke="#e03131"/><text x="225" y="744" fill="#e03131" style="font-size:30px">IN+ ← DC socket +</text></g>
-      <g class="tag"><rect x="430" y="715" width="350" height="58" rx="10" stroke="#e03131"/><text x="605" y="744" fill="#e03131" style="font-size:30px">OUT+ → I2C-A 5V</text></g>
+    <svg viewBox="-10 -105 1220 865" xmlns="http://www.w3.org/2000/svg">
+      <image href="converter-bottom.jpg" x="0" y="0" width="1200" height="658"/>
+      <circle cx="80" cy="125" r="30" fill="none" stroke="#e03131" stroke-width="7"/>
+      <circle cx="65" cy="540" r="30" fill="none" stroke="#fff" stroke-width="7"/>
+      <circle cx="978" cy="143" r="30" fill="none" stroke="#e03131" stroke-width="7"/>
+      <circle cx="1032" cy="465" r="30" fill="none" stroke="#fff" stroke-width="7"/>
+      <line x1="200" y1="-34" x2="98" y2="100" stroke="#e03131" stroke-width="6"/>
+      <line x1="200" y1="688" x2="80" y2="566" stroke="#212529" stroke-width="6"/>
+      <line x1="995" y1="-34" x2="982" y2="112" stroke="#e03131" stroke-width="6"/>
+      <line x1="995" y1="688" x2="1028" y2="496" stroke="#212529" stroke-width="6"/>
+      <g class="tag"><rect x="-5" y="-100" width="410" height="66" rx="10" stroke="#e03131"/><text x="200" y="-67" fill="#e03131" style="font-size:36px">VOUT → I2C-A 5V</text></g>
+      <g class="tag"><rect x="-5" y="688" width="410" height="66" rx="10" stroke="#212529"/><text x="200" y="721" fill="#212529" style="font-size:36px">GND → I2C-A GND</text></g>
+      <g class="tag"><rect x="785" y="-100" width="420" height="66" rx="10" stroke="#e03131"/><text x="995" y="-67" fill="#e03131" style="font-size:36px">VIN ← DC socket +</text></g>
+      <g class="tag"><rect x="785" y="688" width="420" height="66" rx="10" stroke="#212529"/><text x="995" y="721" fill="#212529" style="font-size:36px">GND ← DC socket −</text></g>
     </svg>
-    <figcaption><b>Figure 11.</b> The DFR0831. The IN pads are at the end away from the pin block, the OUT pads next to it. Product photo: Bastelgarage / DFRobot.</figcaption>
+    <figcaption><b>Figure 11.</b> The Waveshare converter from below, where the labels are. Circled: the hole to use in each group, the outer ones, so + and − stay far apart.</figcaption>
   </figure>
   <div>
     <table>
-      <tr><th>Wire</th><th>Pad</th></tr>
-      <tr><td>Converter input, one wire</td><td><b>IN+</b></td></tr>
-      <tr><td>Converter input, other wire</td><td><b>IN−</b></td></tr>
-      <tr><td>4-pin lead, <b>5V</b> (red)</td><td><b>OUT+</b></td></tr>
-      <tr><td>4-pin lead, <b>GND</b> (black)</td><td><b>OUT−</b></td></tr>
+      <tr><th>Wire</th><th>Hole</th></tr>
+      <tr><td>Converter input, one wire</td><td><b>VIN</b></td></tr>
+      <tr><td>Converter input, other wire</td><td><b>GND</b> at the input end</td></tr>
+      <tr><td>4-pin lead, <b>5V</b> (red)</td><td><b>VOUT</b></td></tr>
+      <tr><td>4-pin lead, <b>GND</b> (black)</td><td><b>GND</b> at the output end</td></tr>
     </table>
+  </div>
+</div>
+
+<div class="pair" style="grid-template-columns: 1fr 1fr; align-items:start">
+  <div>
     <ol>
-      <li>Before soldering, find the printed <b>+</b> next to IN+ and next to OUT+ on your converter.</li>
-      <li>Tin the four pads, then solder each wire flat onto its pad. Leave the pin block (G, 5V, S) empty.</li>
-      <li>Mark the wire on IN+ red at its free end.</li>
+      <li>Use one hole of each group, as circled in Figure 11. Holes with the same label should be connected; the continuity beep confirms it.</li>
+      <li>Push each wire end through its hole from the component side, and solder it on the labelled side. Trim what sticks out.</li>
+      <li>Mark the wire on VIN red at its free end.</li>
     </ol>
   </div>
+  <figure style="margin-top:0">
+    <svg viewBox="0 -110 1100 656" xmlns="http://www.w3.org/2000/svg">
+      <image href="converter-top.jpg" x="0" y="0" width="1100" height="546"/>
+      <rect x="538" y="52" width="94" height="42" rx="8" fill="none" stroke="#e03131" stroke-width="6"/>
+      <line x1="585" y1="-22" x2="585" y2="52" stroke="#e03131" stroke-width="6"/>
+      <g class="tag"><rect x="235" y="-104" width="700" height="82" rx="12" stroke="#e03131"/><text x="585" y="-63" fill="#e03131" style="font-size:42px">0 Ω: 5 V from the factory</text></g>
+    </svg>
+    <figcaption><b>Figure 12.</b> The component side. The 0 Ω resistor sets the output. Waveshare fits it for 5 V; the other position gives 3.3 V. Leave it as it is.</figcaption>
+  </figure>
 </div>
 
 <h3>7.4 Solder the DC socket</h3>
@@ -427,11 +440,11 @@
     <text x="540" y="62" font-size="15" font-weight="700" fill="#e8590c" text-anchor="middle">12 V lead → 12VIN of module 1</text>
     <text x="540" y="81" font-size="13" fill="#495057" text-anchor="middle">red-marked wire on +</text>
     <rect x="380" y="100" width="320" height="50" rx="8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="2"/>
-    <text x="540" y="122" font-size="15" font-weight="700" fill="#1c7ed6" text-anchor="middle">Converter input → IN+ / IN−</text>
-    <text x="540" y="141" font-size="13" fill="#495057" text-anchor="middle">IN+ wire on +</text>
+    <text x="540" y="122" font-size="15" font-weight="700" fill="#1c7ed6" text-anchor="middle">Converter input → VIN / GND</text>
+    <text x="540" y="141" font-size="13" fill="#495057" text-anchor="middle">VIN wire on +</text>
     <text x="360" y="210" font-size="14" fill="#495057" text-anchor="middle">Two wires on each terminal. A third terminal, if there is one, stays empty.</text>
   </svg>
-  <figcaption><b>Figure 12.</b> Both leads start at the DC socket: the red-marked wires on <b>+</b>, the others on <b>−</b>.</figcaption>
+  <figcaption><b>Figure 13.</b> Both leads start at the DC socket: the red-marked wires on <b>+</b>, the others on <b>−</b>.</figcaption>
 </figure>
 <ol>
   <li>Slide a piece of heat-shrink over each pair of wires first.</li>
@@ -443,7 +456,7 @@
 <ol>
   <li>Leave both plugs loose. Plug in the 12 V supply.</li>
   <li>At the 2-pin plug, red probe on the red-marked wire: about <b>+12 V</b>. If you read −12 V, + and − are swapped at the DC socket.</li>
-  <li>At the 4-pin plug, red probe on the 5V wire, black on GND: about <b>+5 V</b>. If you read 12 V or −5 V, check the converter against the table in 7.3.</li>
+  <li>At the 4-pin plug, red probe on the 5V wire, black on GND: about <b>+5 V</b>. If you read 12 V or −5 V, check the converter against the table in 7.3. If you read about 3.3 V, the 0 Ω resistor is in the 3.3 V position: move it to the other one (Figure 12).</li>
   <li>Unplug the supply.</li>
 </ol>
 
