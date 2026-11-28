@@ -148,3 +148,5 @@ Order these separately. The README's *Wiring* section shows where they connect.
 - JST-XH cable housings and crimp contacts
 
 LCSC sells the cable housings: XHP-2, XHP-3, XHP-4, and SXH-001T-P0.6 contacts.
+
+Ready-made double-ended JST-XH cables work too for the 12 V (2-pin) and I2C (4-pin) chain, but they must connect pin 1 to pin 1. Sellers usually call these "reverse side" (the latches of the two plugs face opposite ways). "Same side" cables usually swap the order (pin 1 to pin 2, or pin 1 to pin 4). Check one with a multimeter before you use them.

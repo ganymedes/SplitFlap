@@ -57,7 +57,7 @@ Each module PCB has six JST-XH sockets. The motor, hall sensor, power supply, co
 
 | Socket | Pins | Connects to |
 |---|---|---|
-| 12VIN, 12VOUT | 1 = +12 V, 2 = GND | The 12 V supply, and on to the next module. The two sockets are wired together. |
+| 12VIN, 12VOUT | 1 = +12 V, 2 = GND | The 12 V supply, and on to the next module, pin 1 to pin 1. The two sockets are wired together. |
 | I2C-A, I2C-B | 1 = GND, 2 = +5 V, 3 = SDA, 4 = SCL | The previous and the next module, pin 1 to pin 1. The two sockets are wired together. |
 | 5-pin motor socket | 1–4 = coils, 5 = +12 V | The 28BYJ-48 motor. Its plug fits directly. |
 | HALL | 1 = GND, 2 = +5 V, 3 = signal | The KY-003 hall sensor. |
