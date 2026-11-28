@@ -149,4 +149,13 @@ Order these separately. The README's *Wiring* section shows where they connect.
 
 LCSC sells the cable housings: XHP-2, XHP-3, XHP-4, and SXH-001T-P0.6 contacts.
 
-Ready-made double-ended JST-XH cables work too for the 12 V (2-pin) and I2C (4-pin) chain, but they must connect pin 1 to pin 1. Sellers usually call these "reverse side" (the latches of the two plugs face opposite ways). "Same side" cables usually swap the order (pin 1 to pin 2, or pin 1 to pin 4). Check one with a multimeter before you use them.
+Ready-made double-ended JST-XH cables work too for the 12 V (2-pin) and I2C (4-pin) chain, but they must connect pin 1 to pin 1. Sellers usually call these "reverse side" (the latches of the two plugs face opposite ways). "Same side" cables swap the order: the same-side 2-pin cables we bought connect pin 1 to pin 2. To check a cable, hold both plugs the same way round (latch up, openings pointing the same way). The wire colours must be in the same order in both plugs.
+
+To fix a same-side cable, re-pin one end:
+
+1. On the side of the plug where you can see metal through two small windows, each window shows the contact's locking tab.
+2. Press the tab in with a needle and pull the wire out gently.
+3. Bend the tab out again a little, push the wire into its new slot until it clicks, and tug to check that it holds.
+4. On a 2-pin cable, swap the two wires. On a 4-pin cable, reverse the order (1↔4, 2↔3).
+
+The 3-pin hall cables don't need this: their sensor end goes onto the KY-003's bare pins and can be turned either way round. Plug it so that the wire from pin 1 (GND) of the HALL socket reaches **−** on the sensor.
